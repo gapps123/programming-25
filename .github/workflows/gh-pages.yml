@@ -5,6 +5,12 @@ on:
     branches:
       - main  # Set a branch name to trigger deployment
 
+# Add these permission settings
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
