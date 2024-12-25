@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>More lists | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="More lists" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-5/1-more-lists.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-5/1-more-lists.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="More lists" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"More lists","url":"https://gapps123.github.io/programming-25/programming-25/data/part-5/1-more-lists.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will be able to create lists with different types of items
+- You will know how to use lists to organise data
+- You will be able to store a matrix as a two-dimensional list
+
+</text-box>
+
+<!--the same text is in sections 3-1, 5-1 and 6-1, check them all if you're changing this-->
+<text-box variant="hint" name="About the exercises on this course">
+
+Becoming a proficient programmer requires a lot of practice, sometimes even quite mechanical practice. It also involves developing problem solving skills and applying intuition. This is why there are a lot of exercises of different kinds on this course. Some of them ask you to quite straightforwardly apply what you have learnt in the material, but some of them are intentionally more challenging and open-ended.
+
+Some of the exercises might at first seem overwhelming, but this is nothing to worry about. None of the exercises is strictly mandatory, and in fact _only 25 % of the points in each part is required to pass the course._ You can find more details about passing the course on the [page on grading](/grading-and-exams).
+
+**The exercises are not in any specific order of difficulty.** Each section usually introduces some new programming concepts, and these are then practised with both simpler and more complicated exercises. **If you come across an exercise that feels too difficult, move on to the next one.** You can always come back to the more difficult exercises if you have time later.
+
+When the going inevitably gets tough, a word of consolation: a task that seems impossibly difficult this week will likely feel rather easy in about four weeks' time.
+
+</text-box>
+
+<h2 id="lists-with-different-types-of-data">Lists with different types of data</h2>
+
+<p>In the previous part we mainly handled lists with integer items, but any types of values can be stored in lists. A list of strings could look like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Marlyn"</span><span class="p">,</span> <span class="s">"Ruth"</span><span class="p">,</span> <span class="s">"Paul"</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+<span class="n">names</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"David"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Number of names on the list:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Names in alphabetical order:"</span><span class="p">)</span>
+<span class="n">names</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+['Marlyn', 'Ruth', 'Paul']
+['Marlyn', 'Ruth', 'Paul', 'David']
+Number of names on the list: 4
+Names in alphabetical order:
+David
+Marlyn
+Paul
+Ruth
+
+</sample-output>
+
+<p>Floating point numbers are also valid list items:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">14.6</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">,</span> <span class="mf">19.2</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">measure</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
+
+<span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"The mean is:"</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+-2.5
+1.1
+7.5
+14.6
+21.0
+19.2
+The mean is: 10.15
+
+</sample-output>
+
+<!--a similar warning is in sections 3-4, 4-6 and 5-1, check them all if you're changing this-->
+<h2 id="reminder-using-global-variables-within-functions">Reminder: using global variables within functions</h2>
+
+<p>We know it is possible to assign new variables within function definitions, but the function can also see variables assigned outside it, in the main function. Such variables are called <em>global</em> variables.</p>
+
+<p>Using global variables from within functions is usually a bad idea. Among other issues, doing so may cause bugs which are difficult to trace.</p>
+
+<p>Below is an example of a function which uses a global variable “by mistake”:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_reversed</span><span class="p">(</span><span class="n">names</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="c1"># using the global variable instead of the parameter by accident
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">name_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="c1"># here the global variable is assigned
+</span><span class="n">name_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Steve"</span><span class="p">,</span> <span class="s">"Jean"</span><span class="p">,</span> <span class="s">"Katherine"</span><span class="p">,</span> <span class="s">"Paul"</span><span class="p">]</span>
+<span class="n">print_reversed</span><span class="p">(</span><span class="n">name_list</span><span class="p">)</span>
+<span class="k">print</span><span class="p">()</span>
+<span class="n">print_reversed</span><span class="p">([</span><span class="s">"Huey"</span><span class="p">,</span> <span class="s">"Dewey"</span><span class="p">,</span> <span class="s">"Louie"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Paul
+Katherine
+Jean
+Steve
+
+Paul
+Katherine
+Jean
+Steve
+
+</sample-output>
+
+<p>Even though both function calls have the right kind of argument, the function always prints out what is stored in the global variable <code class="language-plaintext highlighter-rouge">name_list</code>.</p>
+
+<p>To make matters even more muddled, remember that all code for testing your functions should be placed within the <code class="language-plaintext highlighter-rouge">if __name__ == "__main__":</code> block for the automatic tests. The previous example should be modified:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_reversed</span><span class="p">(</span><span class="n">names</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="c1"># using the global variable instead of the parameter by accident
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">name_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="c1"># All the code for testing the function should be within this block
+</span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="c1"># here the global variable is assigned
+</span>    <span class="n">name_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Steve"</span><span class="p">,</span> <span class="s">"Jean"</span><span class="p">,</span> <span class="s">"Katherine"</span><span class="p">,</span> <span class="s">"Paul"</span><span class="p">]</span>
+    <span class="n">print_reversed</span><span class="p">(</span><span class="n">name_list</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>
+    <span class="n">print_reversed</span><span class="p">([</span><span class="s">"Huey"</span><span class="p">,</span> <span class="s">"Dewey"</span><span class="p">,</span> <span class="s">"Louie"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Notice the global variable is assigned within the <code class="language-plaintext highlighter-rouge">if</code> block now.</p>
+
+<p>The automatic tests in the TMC system are executed without running any of the code in the <code class="language-plaintext highlighter-rouge">if</code> block. So, in this latter example the function wouldn’t even theoretically work, since it refers to the variable <code class="language-plaintext highlighter-rouge">name_list</code>, which doesn’t exist at all when the tests are executed.</p>
+
+<h2 id="warning-overwriting-a-parameter-and-returning-too-early">Warning: overwriting a parameter and returning too early</h2>
+
+<p>There are a couple of novel sources of bugs we should look at before jumping into the exercises in this part. Let’s have a look at a function which tells us whether an integer is found within a list. Both are defined as parameters of the function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">number_in_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">number</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<p>This function seems to always return <code class="language-plaintext highlighter-rouge">True</code>. The reason is that the <code class="language-plaintext highlighter-rouge">for</code> loop overwrites the value stored in the parameter <code class="language-plaintext highlighter-rouge">number</code>. Thus the condition in the <code class="language-plaintext highlighter-rouge">if</code> statement is always true.</p>
+
+<p>Renaming the parameter solves the problem:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">number_in_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">searched_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">searched_number</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<p>Now the condition in the <code class="language-plaintext highlighter-rouge">if</code> statement looks better. But there is a new problem, since the function still doesn’t seem to work correctly. Trying out the following manifests a bug:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">found</span> <span class="o">=</span> <span class="n">number_in_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">found</span><span class="p">)</span>  <span class="c1"># prints out False
+</span></code></pre></div></div>
+
+<p>The issue here is that the function returns too early, without checking all the numbers in the list. In fact, the function takes only the first item in the list, and returns <code class="language-plaintext highlighter-rouge">True</code> or <code class="language-plaintext highlighter-rouge">False</code> depending on its value. We cannot know whether a number is <em>not present</em> in the list until we have checked all the items in the list. The <code class="language-plaintext highlighter-rouge">return False</code> command should be placed outside the <code class="language-plaintext highlighter-rouge">for</code> loop:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">number_in_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">searched_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">searched_number</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<p>Let’s have a look at another faulty function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">unique_numbers</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="c1"># a helper variable to store all the numbers we've already checked
+</span>    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="c1"># have we seen this number already?
+</span>        <span class="k">if</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="n">unique</span> <span class="o">=</span> <span class="n">unique_numbers</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">unique</span><span class="p">)</span>  <span class="c1"># prints out True
+</span></code></pre></div></div>
+
+<p>This function is supposed to check whether all numbers in a list are distinct from each other, but it always returns <code class="language-plaintext highlighter-rouge">True</code>.</p>
+
+<p>Here the function again overwrites the value stored in its parameter by mistake. The function tries to use the variable <code class="language-plaintext highlighter-rouge">numbers</code> to store all the numbers already checked, but this overwrites the original argument list. Renaming the helper variable is an easy fix:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">unique_numbers</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="c1"># a helper variable to store all the numbers we've already checked
+</span>    <span class="n">numbers_checked</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="c1"># have we seen this number already?
+</span>        <span class="k">if</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers_checked</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">numbers_checked</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="n">unique</span> <span class="o">=</span> <span class="n">unique_numbers</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">unique</span><span class="p">)</span>  <span class="c1"># prints out False
+</span></code></pre></div></div>
+
+<p>Problems like this, and many others, can be located and fixed with the help of the debugger or the <a href="http://www.pythontutor.com/visualize.html#mode=edit">visualisation tool</a>. Learning to use these efficiently cannot be emphasised enough.</p>
+
+<programming-exercise name="The longest string" tmcname="part05-01_longest_string">
+
+Please write a function named `longest(strings: list)`, which takes a list of strings as its argument. The function finds and returns the longest string in the list. You may assume there is always a single longest string in the list.
+
+An example of expected behaviour:
+
+```python
+
+if __name__ == "__main__":
+    strings = ["hi", "hiya", "hello", "howdydoody", "hi there"]
+    print(longest(strings))
+
+```
+
+<sample-output>
+
+howdydoody
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="lists-within-lists">Lists within lists</h2>
+
+<p>The items in a list can be lists themselves:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></div>
+<sample-output>
+
+[[5, 2, 3], [4, 1], [2, 2, 5, 1]]
+[4, 1]
+4
+
+</sample-output>
+
+<p>Why would lists within lists be useful?</p>
+
+<p>Remember that lists can contain items of different types. You could store information about a person in a list. For instance, you could include their name as the first item, their age as the second item, and their height in meters as the third item:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="s">"Anne"</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>A database of persons could then be a list, whose items would be lists containing information about a single person:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">persons</span> <span class="o">=</span> <span class="p">[[</span><span class="s">"Betty"</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">1.37</span><span class="p">],</span> <span class="p">[</span><span class="s">"Peter"</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">],</span> <span class="p">[</span><span class="s">"Emily"</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mf">1.64</span><span class="p">],</span> <span class="p">[</span><span class="s">"Alan"</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mf">1.78</span><span class="p">]]</span>
+
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">persons</span><span class="p">:</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="n">person</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">age</span> <span class="o">=</span> <span class="n">person</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">height</span> <span class="o">=</span> <span class="n">person</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">: age </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s"> years, height </span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s"> meters"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Betty: age 10 years, height 1.37 meters
+Peter: age 7 years, height 1.25 meters
+Emily: age 32 years, height 1.64 meters
+Alan: age 39 years, height 1.78 meters
+
+</sample-output>
+
+<p>The <code class="language-plaintext highlighter-rouge">for</code> loop goes through the items in the outer list one by one. That is, each list containing information about a single person is, in turn, assigned to the variable <code class="language-plaintext highlighter-rouge">person</code>.</p>
+
+<p>Lists arent always the best way to present data, such as information about a person. We will soon come across Python <em>dictionaries</em>, which are often better suited to such situations.</p>
+
+<h2 id="matrices">Matrices</h2>
+
+<p>A two-dimensional array, or a <em>matrix</em>, is also a natural application of a list within a list.</p>
+
+<p>For example, the following matrix</p>
+
+<p><img src="5_1_1.png" /></p>
+
+<p>could be presented as a two-dimensional list in Python like so:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Since a matrix is a list containing lists, the individual elements within the matrix can be accessed using consecutive square brackets. The first index refers to the row, and the second to the column. Indexing starts from zero, so for example <code class="language-plaintext highlighter-rouge">my_matrix[0][1]</code> refers to the second item on the first row.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">my_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">my_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_matrix</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+2
+[[1, 2, 3], [10, 2, 1], [4, 5, 6]]
+
+</sample-output>
+
+<p>Like any other list, the rows of the matrix can be traversed wth a <code class="language-plaintext highlighter-rouge">for</code> loop. The following code prints out each row of the matrix on a separate line:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">my_matrix</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+
+</sample-output>
+
+<p>Likewise, nested loops can be used to access the individual elements. The following code prints out each element in the matrix on a separate line with the help of two <code class="language-plaintext highlighter-rouge">for</code> loops:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">my_matrix</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"a new row"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+a new row
+1
+2
+3
+a new row
+4
+5
+6
+a new row
+7
+8
+9
+
+</sample-output>
+
+<h2 id="visualising-code-containing-lists-within-lists">Visualising code containing lists within lists</h2>
+
+<p>Programs containing lists within lists can feel hard to grasp at first. The <a href="http://www.pythontutor.com/visualize.html">visualisation tool</a> from Python Tutor is a great help in understanding how they work. The following is a visualisation of the example above:</p>
+
+<p><img src="5_1_2.png" /></p>
+
+<p>The image above reveals that a 3 by 3 matrix technically consists of four lists. The first list represents the entire matrix. The three remaining lists are items in the first list, and represent the rows.</p>
+
+<p>As multidimensional lists can be traversed with nested loops, it would be natural to think of the lists themselves as nested, but the image above shows us this isn’t actually so. Instead, the list representing the whole matrix “points” to each individual list representing a row in the matrix. This is called a <em>reference</em>, and in the <a href="/part-5/2-references">following section</a> the idea will be explored more thoroughly.</p>
+
+<p>In the image above the execution has progressed to the second row of the matrix, and this list is what the variable <code class="language-plaintext highlighter-rouge">row</code> currently refers to. The variable <code class="language-plaintext highlighter-rouge">element</code> contains the element the execution is currently at. The value stored in <code class="language-plaintext highlighter-rouge">element</code> is the middle item in the list, i.e. 5.</p>
+
+<h2 id="accessing-items-in-a-matrix">Accessing items in a matrix</h2>
+
+<p>Accessing a single row within a matrix is simple - just choose the desired row. The following function calculates the sum of the elements on a chosen row:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sum_of_row</span><span class="p">(</span><span class="n">my_matrix</span><span class="p">,</span> <span class="n">row_no</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># choose the desired row from within the matrix
+</span>    <span class="n">row</span> <span class="o">=</span> <span class="n">my_matrix</span><span class="p">[</span><span class="n">row_no</span><span class="p">]</span>
+    <span class="n">row_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="n">row_sum</span> <span class="o">+=</span> <span class="n">item</span>
+
+    <span class="k">return</span> <span class="n">row_sum</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">my_sum</span> <span class="o">=</span> <span class="n">sum_of_row</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_sum</span><span class="p">)</span> <span class="c1"># prints out 33 (which equals 9 + 1 + 12 + 11)
+</span></code></pre></div></div>
+
+<p>Working with columns within a matrix is slightly more complicated, as the matrix is stored by rows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sum_of_column</span><span class="p">(</span><span class="n">my_matrix</span><span class="p">,</span> <span class="n">column_no</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># go through each row and select the item at the chosen position
+</span>    <span class="n">column_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">my_matrix</span><span class="p">:</span>
+        <span class="n">column_sum</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="n">column_no</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">column_sum</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">my_sum</span> <span class="o">=</span> <span class="n">sum_of_column</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_sum</span><span class="p">)</span> <span class="c1"># prints out 39 (which equals 3 + 12 + 9 + 15)
+</span></code></pre></div></div>
+
+<p>The column handled here consists of the elements at index 2 on <em>each row</em>.</p>
+
+<p><a href="http://www.pythontutor.com/visualize.html">The visualisation tool</a> is definitely recommended for understanding how these functions work.</p>
+
+<p>Changing the value of a single element within the matrix is simple: choose a row within the matrix, and then a column within the row:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="n">my_matrix</span><span class="p">,</span> <span class="n">row_no</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">column_no</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># choose the desired row
+</span>    <span class="n">row</span> <span class="o">=</span> <span class="n">my_matrix</span><span class="p">[</span><span class="n">row_no</span><span class="p">]</span>
+    <span class="c1"># select the correct item within the row
+</span>    <span class="n">row</span><span class="p">[</span><span class="n">column_no</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">change_value</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[[4, 2, 3, 2], [9, 1, 12, 11], [7, 8, 9, 5], [2, 9, 15, 1]]
+[[4, 2, 3, 2], [9, 1, 12, 11], [7, 8, 9, 1000], [2, 9, 15, 1]]
+
+</sample-output>
+
+<p>Notice how above we used the indexes of the row and column to access a chosen element. If we want to change the contents of the matrix, we have to access the elements by their indexes. This means that we can’t use a simple <code class="language-plaintext highlighter-rouge">for item in list</code> loop to traverse the matrix if we want to change the contents of the matrix.</p>
+
+<p>Instead, we will have to keep track of the indexes of the elements, for example with a <code class="language-plaintext highlighter-rouge">while</code> loop, or a <code class="language-plaintext highlighter-rouge">for</code> loop using the <code class="language-plaintext highlighter-rouge">range</code> function. The following code increases the value of each element in the matrix by one:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)):</span> <span class="c1"># using the number of rows in the matrix
+</span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span> <span class="c1"># using the number of items on each row 
+</span>        <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[[2, 3, 4], [5, 6, 7], [8, 9, 10]]
+
+</sample-output>
+
+<p>The outer loop goes through indexes from zero to the length of the matrix, that is, the number of rows in the matrix. The inner loop goes through indexes from zero to the length of each row within the matrix.</p>
+
+<programming-exercise name="Number of matching elements" tmcname="part05-02_number_of_elements">
+
+Please write a function named `count_matching_elements(my_matrix: list, element: int)`, which takes a two-dimensional array of integers and a single integer value as its arguments. The function then counts how many elements within the matrix match the argument value.
+
+An example of how the function should work:
+
+```python
+m = [[1, 2, 1], [0, 3, 4], [1, 0, 0]]
+print(count_matching_elements(m, 1))
+```
+
+<sample-output>
+
+3
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="a-two-dimensional-array-as-a-data-structure-in-a-game">A two-dimensional array as a data structure in a game</h2>
+
+<p>A matrix can be a very useful data structure in many different games. For example, the grid of a sudoku game in the image below</p>
+
+<p><img src="5_1_3.png" /></p>
+
+<p>can be represented in matrix form like so:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sudoku</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Here the value zero represents an empty square, as zero is not an acceptable value in a finished sudoku puzzle.</p>
+
+<p>Here is a simple function for printing out the above sudoku grid:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_grid</span><span class="p">(</span><span class="n">sudoku</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sudoku</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">square</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">square</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">" </span><span class="si">{</span><span class="n">square</span><span class="si">}</span><span class="s">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">" _"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+
+<span class="n">print_grid</span><span class="p">(</span><span class="n">sudoku</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The printout should look like this::</p>
+
+<pre><code class="language-x">
+ 9 _ _ _ 8 _ 3 _ _
+ _ _ _ 2 5 _ 7 _ _
+ _ 2 _ 3 _ _ _ _ 4
+ _ 9 4 _ _ _ _ _ _
+ _ _ _ 7 3 _ 5 6 _
+ 7 _ 5 _ 6 _ 4 _ _
+ _ _ 7 8 _ 3 9 _ _
+ _ _ 1 _ _ _ _ _ 3
+ 3 _ _ _ _ _ _ _ 2
+
+</code></pre>
+
+<p>Any common game with a gameboard layout can be modelled in a similar fashion. Among others, chess, Minesweeper, Battleship or Mastermind are all based on a two-dimensional grid. For sudoku, it is natural to use numbers to represent the game state, but for other games, different methods may be better.</p>
+
+<programming-exercise name="Go" tmcname="part05-03_go">
+
+In a game of Go two players take turns to place black and white stones on a game board. The winner is the player who manages to encircle a bigger area on the board with their own game pieces. 
+
+Please write a function named `who_won(game_board: list)`, which takes a two-dimensional array as its argument. The array consists of integer values, which represent the following situations:
+
+* 0: empty square
+* 1: player 1 game piece
+* 2: player 2 game piece
+
+The scoring rules of Go can be quite complex, but in this exercise it is enough to compare the number of pieces each player has on the game board. Also, the size of the game board is not limited.
+
+The function should return the value 1 if player 1 won, and the value 2 if player 2 won. If both players have the same number of pieces on the board, the function should return the value 0.
+
+</programming-exercise>
+
+<programming-exercise name="Sudoku: check row" tmcname="part05-04_sudoku_row">
+
+Please write a function named `row_correct(sudoku: list, row_no: int)`, which takes a two-dimensional array representing a sudoku grid, and an integer referring to a single row, as its arguments. Rows are indexed from 0.
+
+The function should return `True` or `False`, depending on whether the row is filled in correctly, that is, whether it contains each of the numbers 1 to 9 at most once.
+
+```python
+sudoku = [
+  [9, 0, 0, 0, 8, 0, 3, 0, 0],
+  [2, 0, 0, 2, 5, 0, 7, 0, 0],
+  [0, 2, 0, 3, 0, 0, 0, 0, 4],
+  [2, 9, 4, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 3, 0, 5, 6, 0],
+  [7, 0, 5, 0, 6, 0, 4, 0, 0],
+  [0, 0, 7, 8, 0, 3, 9, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 3],
+  [3, 0, 0, 0, 0, 0, 0, 0, 2]
+]
+
+print(row_correct(sudoku, 0))
+print(row_correct(sudoku, 1))
+```
+
+<sample-output>
+
+True
+False
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Sudoku: check column" tmcname="part05-05_sudoku_column">
+
+Please write a function named `column_correct(sudoku: list, column_no: int)`, which takes a two-dimensional array representing a sudoku grid, and an integer referring to a single column, as its arguments. Columns are indexed from 0. 
+
+The function should return `True` or `False`, depending on whether the column is filled in correctly, that is, whether it contains each of the numbers 1 to 9 at most once.
+
+```python
+sudoku = [
+  [9, 0, 0, 0, 8, 0, 3, 0, 0],
+  [2, 0, 0, 2, 5, 0, 7, 0, 0],
+  [0, 2, 0, 3, 0, 0, 0, 0, 4],
+  [2, 9, 4, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 3, 0, 5, 6, 0],
+  [7, 0, 5, 0, 6, 0, 4, 0, 0],
+  [0, 0, 7, 8, 0, 3, 9, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 3],
+  [3, 0, 0, 0, 0, 0, 0, 0, 2]
+]
+
+print(column_correct(sudoku, 0))
+print(column_correct(sudoku, 1))
+```
+
+<sample-output>
+
+False
+True
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Sudoku: check block" tmcname="part05-06_sudoku_block">
+
+Please write a function named `block_correct(sudoku: list, row_no: int, column_no: int)`, which takes a two-dimensional array representing a sudoku grid, and two integers referring to the row and column indexes of a single square, as its arguments. Rows and columns are indexed from 0. 
+
+The function should return `True` or `False` depending on whether the 3 by 3 block to the right and down from the given indexes is filled in correctly. That is, whether the block contains each of the numbers 1 to 9 at most once.
+
+Notice that this function does not strictly follow the rules of sudoku. In a real game of sudoku there are only 9 blocks to check, and these are located at indexes (0, 0), (0, 3), (0, 6), (3, 0), (3, 3), (3, 6), (6, 0), (6, 3) and (6, 6). Such restrictions on indexes should not be implemented here.
+
+```python
+sudoku = [
+  [9, 0, 0, 0, 8, 0, 3, 0, 0],
+  [2, 0, 0, 2, 5, 0, 7, 0, 0],
+  [0, 2, 0, 3, 0, 0, 0, 0, 4],
+  [2, 9, 4, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 3, 0, 5, 6, 0],
+  [7, 0, 5, 0, 6, 0, 4, 0, 0],
+  [0, 0, 7, 8, 0, 3, 9, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 3],
+  [3, 0, 0, 0, 0, 0, 0, 0, 2]
+]
+
+print(block_correct(sudoku, 0, 0))
+print(block_correct(sudoku, 1, 2))
+```
+
+<sample-output>
+
+False
+True
+
+</sample-output>
+
+The first function call should check the 3 by 3 block beginning with the square at indexes `0, 0`:
+
+<pre>
+9 0 0
+2 0 0
+0 2 0
+</pre>
+
+The second function call should check the 3 by 3 block beginning with the square at row 1, column 2:
+
+<pre>
+0 2 5
+0 3 0
+4 0 0
+</pre>
+
+This second block would not be checked in an actual game of sudoku, but your function should allow for it to be checked.
+
+</programming-exercise>
+
+<programming-exercise name="Sudoku: check grid" tmcname="part05-07_sudoku_grid">
+
+Please write a function named `sudoku_grid_correct(sudoku: list)`, which takes a two-dimensional array representing a sudoku grid as its argument. The function should use the functions from the three previous exercises to determine whether the complete sudoku grid is filled in correctly. Copy the functions from the exercises above into your Python code file for this exercise.
+
+The function should check each of the nine rows, columns and 3 by 3 blocks in the grid. If all contain each of the numbers 1 to 9 at most once, the function returns `True`. If a single one is filled in incorrectly, the function returns `False`. 
+
+The image of a sudoku grid above these exercises has the nine blocks within the grid indicated with thicker borders. These are the blocks the function should check, and they begin at the indexes (0, 0), (0, 3), (0, 6), (3, 0), (3, 3), (3, 6), (6, 0), (6, 3) and (6, 6). 
+
+```python
+sudoku1 = [
+  [9, 0, 0, 0, 8, 0, 3, 0, 0],
+  [2, 0, 0, 2, 5, 0, 7, 0, 0],
+  [0, 2, 0, 3, 0, 0, 0, 0, 4],
+  [2, 9, 4, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 3, 0, 5, 6, 0],
+  [7, 0, 5, 0, 6, 0, 4, 0, 0],
+  [0, 0, 7, 8, 0, 3, 9, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 3],
+  [3, 0, 0, 0, 0, 0, 0, 0, 2]
+]
+
+print(sudoku_grid_correct(sudoku1))
+
+sudoku2 = [
+  [2, 6, 7, 8, 3, 9, 5, 0, 4],
+  [9, 0, 3, 5, 1, 0, 6, 0, 0],
+  [0, 5, 1, 6, 0, 0, 8, 3, 9],
+  [5, 1, 9, 0, 4, 6, 3, 2, 8],
+  [8, 0, 2, 1, 0, 5, 7, 0, 6],
+  [6, 7, 4, 3, 2, 0, 0, 0, 5],
+  [0, 0, 0, 4, 5, 7, 2, 6, 3],
+  [3, 2, 0, 0, 8, 0, 0, 5, 7],
+  [7, 4, 5, 0, 0, 3, 9, 0, 1]
+]
+
+print(sudoku_grid_correct(sudoku2))
+```
+
+<sample-output>
+
+False
+True
+
+</sample-output>
+
+</programming-exercise>
+
+<!---
+A quiz to review the contents of this section:
+
+<quiz id="ccb6dcbf-1065-513f-9294-15f42a318300"></quiz>
+-->
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

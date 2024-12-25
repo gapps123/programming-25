@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Common error messages | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Common error messages" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/error_messages.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/error_messages.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Common error messages" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Common error messages","url":"https://gapps123.github.io/programming-25/programming-25/data/error_messages.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <p>This page contains information about the most common error messages you may come across when completing the programming exercises on this course.</p>
+
+<h3 id="my-printout-looks-identical-to-the-example-in-the-instructions-but-my-submission-still-fails">My printout looks identical to the example in the instructions, but my submission still fails</h3>
+
+<p>Make sure your program doesn’t print any extra whitespace, such as space characters. Notice that the default behaviour of the <code class="language-plaintext highlighter-rouge">print</code> function is to add a space between any strings separated with a comma.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">,</span><span class="s">"World!"</span><span class="p">)</span>    <span class="c1"># This prints out: Hello World!
+</span></code></pre></div></div>
+
+<h3 id="syntaxerror-bad-input-on-line-line-number">SyntaxError: bad input on line [line number]</h3>
+
+<p>This error message usually appears when there is a typo in your code which the Python interpreter finds hard to classify more specifically. For example, there may be a colon character missing from the end of an <code class="language-plaintext highlighter-rouge">if</code> statement, or a keyword, such as <code class="language-plaintext highlighter-rouge">while</code>, may have been misspelled. The only way to fix this problem is to inspect the line indicated in the error message.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">number1</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">number1</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">number1</span> <span class="o">&lt;</span> <span class="n">number2</span>    <span class="c1"># ':' missing
+</span>        <span class="k">print</span><span class="p">(</span><span class="s">'number2 is greater'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>If the line indicated in the error message looks correct, the error may often be one line above or below the line indicated, so check around the issue, too.</p>
+
+<p><strong>NB: The programming exercises in the early parts of this course use a framework called Skulpt to run Python code in the browser.</strong> Skulpt is quite limited compared to a regular Python interpreter, and thus the error messages printed out are often less informative. For example, the <code class="language-plaintext highlighter-rouge">bad input on line</code> error message may refer to many different programming errors, and it is difficult to find out the true cause of the error just based on this message.</p>
+
+<h3 id="syntaxerror-unindent-does-not-match-any-outer-indentation-level-on-line-line-number">SyntaxError: unindent does not match any outer indentation level on line [line number]</h3>
+
+<p>Your code is indented incorrectly at the line indicated in the error message. For example, all lines within an <code class="language-plaintext highlighter-rouge">if</code> block must be indented the same. To fix this error, indent all lines within a block of code with the exact same amount of whitespace.
+The following code would cause this error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Indented correctly'</span><span class="p">)</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">'Indented incorrectly!'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="nameerror-name-variable-name-is-not-defined-on-line-line-number">NameError: name [variable name] is not defined on line [line number]</h3>
+
+<p>You are trying to refer to a variable or object which does not exist at that specific point in your program. It may be that the variable has not yet been assigned a value, or there is a typo in the variable name. It may also be the case that you have defined a variable inside a function, and are trying to refer to that same variable outside the function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">person</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">'Please type in your name: '</span><span class="p">)</span>
+    <span class="nb">input</span><span class="p">(</span><span class="s">'Please type in your age: '</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hi"</span><span class="p">,</span> <span class="n">pearson</span><span class="p">)</span>                <span class="c1"># error: person was typed pearson
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"You are"</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="s">"years old"</span><span class="p">)</span>  <span class="c1"># error: the variable age has not been defined
+</span></code></pre></div></div>
+
+<h3 id="typeerror-unsupported-operand-types-for-add-int-and-str-on-line-line-number">TypeError: unsupported operand type(s) for Add: ‘int’ and ‘str’ on line [line number]</h3>
+
+<p>You may be trying to add an integer and a string together, without first converting the string into an integer value. Strings can be converted into integers with the <code class="language-plaintext highlighter-rouge">int()</code> function. A similar error message may appear if you try to perform other arithmetic operations, such as division or subtraction, on strings.</p>
+
+<p>It may also be the case that you are trying to create a new string by combining a string and an integer. You should first convert the integer into a string with the <code class="language-plaintext highlighter-rouge">str()</code> function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">my_age</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in your age: "</span><span class="p">)</span>
+    <span class="n">my_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in your name: "</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">my_age</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># error: the variable my_age has not been converted into an integer 
+</span></code></pre></div></div>
+
+<h3 id="typeerror-cannot-concatenate-str-and-int-objects-on-line-line-number">TypeError: cannot concatenate ‘str’ and ‘int’ objects on line [line number]</h3>
+
+<p>See above.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

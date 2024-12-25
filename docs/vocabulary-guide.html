@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Sanasto-sivu | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Sanasto-sivu" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/docs/vocabulary-guide.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/docs/vocabulary-guide.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Sanasto-sivu" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Sanasto-sivu","url":"https://gapps123.github.io/programming-25/programming-25/docs/vocabulary-guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <h2 id="sanasto-sivu">Sanasto-sivu</h2>
+
+<p>Sanaston tarkoituksena on tarjota opiskelijoille nopea pääsy konsepteihin, joita he kohtaavat materiaalissa. Jokaisen konseptin kohdalla on linkit niiden sijainteihin materiaalissa.</p>
+
+<p>Jos konseptille on määritelty kuvaus, se lukee sen alapuolella sanastossa.</p>
+
+<p>Tässä esimerkki Sanastosta:</p>
+
+<p><img src="images/vocabulary-example-finnish.png" alt="alt text" title="Sanasto, jossa määriteltynä sana While toistolause" /></p>
+
+<h2 id="konseptien-lisääminen-sanastoon">Konseptien lisääminen sanastoon</h2>
+
+<p>Sanasto löytää automaattisesti kaikki sanaston konseptit kurssimateriaalin markdown-tiedostoista, ja luo löydetyistä konsepteista listan.</p>
+
+<p>Konseptin rakenne markdown-tiedostoissa on seuraava:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;vocabulary-word name="Example name"&gt;&lt;/vocabulary-word&gt;</code></p>
+
+<p>tai</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;vocabulary-word name="Example name" description="Example description"&gt;&lt;/vocabulary-word&gt;</code></p>
+
+<p>riippuen siitä, haluaako sanalle kuvauksen.</p>
+
+<p><strong>name</strong>-kenttä on pakollinen, johon kirjoitetaan sanan nimi.</p>
+
+<p><strong>description</strong>-kenttä on vapaaehtoinen, johon voi kirjoittaa kuvauksen sanasta.</p>
+
+<p><code class="language-plaintext highlighter-rouge">vocabulary-word</code>-tagi kannattaa lisätä markdown-tiedostoon juuri ennen konseptin esittelyä. Tällöin Sanasto-sivun linkki materiaaliin vierittää sivun oikeaan kohtaan.</p>
+
+<h2 id="vocabulary-page">Vocabulary-page</h2>
+
+<p>The purpose of the vocabulary is to offer students fast access to consepts they come across in the materials. Every consept in the vocabulary has a link to the part of the material where the consept was introduced.</p>
+
+<p>If a consept has a description, it is shown below the consept in the vocabulary.</p>
+
+<p>Here’s an example of the Vocabulary:</p>
+
+<p><img src="images/vocabulary-example-english.png" alt="alt text" title="Vocabulary, that contains the consept While loop" /></p>
+
+<h2 id="adding-consepts-to-the-vocabulary">Adding consepts to the vocabulary</h2>
+
+<p>The vocabulary automatically finds all consepts in the markdown-files of the course material, and creates a list of the consepts.</p>
+
+<p>A consept is defined in a markdown-file as follows:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;vocabulary-word name="Example name"&gt;&lt;/vocabulary-word&gt;</code></p>
+
+<p>or</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;vocabulary-word name="Example name" description="Example description"&gt;&lt;/vocabulary-word&gt;</code></p>
+
+<p>depending on whether a description is defined or not.</p>
+
+<p><strong>name</strong>-field is required, which is the name of the consept.</p>
+
+<p><strong>description</strong>-field is optional, where a description of the consept can be added.</p>
+
+<p>The tag <code class="language-plaintext highlighter-rouge">vocabulary-word</code> should be added in the material right before the consept is introduced. Thus, the link in the Vocabulary-page scrolls the material to the correct position.</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

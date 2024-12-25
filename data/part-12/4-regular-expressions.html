@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Regular expressions | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Regular expressions" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-12/4-regular-expressions.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-12/4-regular-expressions.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Regular expressions" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Regular expressions","url":"https://gapps123.github.io/programming-25/programming-25/data/part-12/4-regular-expressions.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know what regular expressions are
+- You will be able to use regular expressions in your own programs
+
+</text-box>
+
+<p>We have already established that Python is an excellent environment for processing text. One additional powerful tool for text processing is <em>regular expressions</em>, often shortened as <em>regex</em> or <em>regexp</em>. They are a way of selecting and searching for strings which follow a certain pattern. This section introduces you to the basics of regular expression, but you will find much more information online, including in the Python <a href="https://docs.python.org/3/howto/regex.html">tutorial</a>.</p>
+
+<h2 id="what-are-regular-expressions">What are regular expressions?</h2>
+
+<p>Regular expressions are not just a Python feature. They represent, in a way, a programming language within a programming language. They are, to an extent, compatible across many different programming languages. Regular expressions have their own specific syntax. The idea is to define a collection of strings which follow certain rules.</p>
+
+<p>Let’s begin with a simple example, before diving deeper into the syntax:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Python"</span><span class="p">,</span> <span class="s">"Pantone"</span><span class="p">,</span> <span class="s">"Pontoon"</span><span class="p">,</span> <span class="s">"Pollute"</span><span class="p">,</span> <span class="s">"Pantheon"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="c1"># the string should begin with "P" and end with "on"
+</span>    <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">"^P.*on$"</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="s">"found!"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Python found!
+Pontoon found!
+Pantheon found!
+
+</sample-output>
+
+<p>We need to <code class="language-plaintext highlighter-rouge">import</code> the <code class="language-plaintext highlighter-rouge">re</code> module in order to use regular expressions in Python. The <code class="language-plaintext highlighter-rouge">re</code> module contains many functions for working with regular expressions. In the example above, the <code class="language-plaintext highlighter-rouge">search</code> function takes two string arguments: the pattern string, and the target string where the pattern is looked for.</p>
+
+<p>This second example looks for any numbers in a string. The <code class="language-plaintext highlighter-rouge">findall</code> function returns a list of all the instances which match the pattern:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">sentence</span> <span class="o">=</span> <span class="s">"First, 2 !#third 44 five 678xyz962"</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="s">"\d+"</span><span class="p">,</span> <span class="n">sentence</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+2
+44
+678
+962
+
+</sample-output>
+
+<h2 id="the-syntax-of-regular-expressions">The syntax of regular expressions</h2>
+
+<p>Let’s get familiar with the basic syntax of regular expressions. Most of the following examples make use of this testing program:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">expression</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in an expression: "</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in a string: "</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">input_string</span> <span class="o">==</span> <span class="s">""</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">input_string</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Found!"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Not found."</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="alternate-substrings">Alternate substrings</h3>
+
+<p>The vertical bar <code class="language-plaintext highlighter-rouge">|</code>, also called the pipe character, allows you to match alternate substrings. Its significance is thus <em>or</em>. For example, the expression <code class="language-plaintext highlighter-rouge">911|112</code> matches strings which include either the substring <code class="language-plaintext highlighter-rouge">911</code> or the substring <code class="language-plaintext highlighter-rouge">112</code>.</p>
+
+<p>An example with the testing program:</p>
+
+<sample-output>
+
+Please type in an expression: **aa|ee|ii**
+Please type in a string: **aardvark**
+Found!
+Please type in a string: **feelings**
+Found!
+Please type in a string: **radii**
+Found!
+Please type in a string: **smooch**
+Not found.
+Please type in a string: **continuum**
+Not found.
+
+</sample-output>
+
+<h3 id="groups-of-characters">Groups of characters</h3>
+
+<p>Square brackets are used to signify groups of accepted characters. For example, the expression <code class="language-plaintext highlighter-rouge">[aeio]</code> would match all strings which contain any of the characters a, e, i, or o.</p>
+
+<p>A dash is also allowed for matching ranges of characters. For example, the expression <code class="language-plaintext highlighter-rouge">[0-68a-d]</code> would match all strings which contain a digit between 0 and 6, or an eight, or a character between a and d. In this notation all ranges are <em>inclusive</em>.</p>
+
+<p>Combining two sets of brackets lets you match two consecutive characters. For example, the expression <code class="language-plaintext highlighter-rouge">[1-3][0-9]</code> would match any two digit number between 10 and 39, inclusive.</p>
+
+<p>An example with the testing program:</p>
+
+<sample-output>
+
+Please type in an expression: **[C-FRSO]**
+Please type in a string: **C**
+Found!
+Please type in a string: **E**
+Found!
+Please type in a string: **G**
+Not found.
+Please type in a string: **R**
+Found!
+Please type in a string: **O**
+Found!
+Please type in a string: **T**
+Not found.
+
+</sample-output>
+
+<h3 id="repeated-matches">Repeated matches</h3>
+
+<p>Any part of an expression can be repeated with the following operators:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">*</code> repeats for any number of times, including zero</li>
+  <li><code class="language-plaintext highlighter-rouge">+</code> repeats for any number of times, but at least once</li>
+  <li><code class="language-plaintext highlighter-rouge">{m}</code> repeats for exactly <code class="language-plaintext highlighter-rouge">m</code> times</li>
+</ul>
+
+<p>These operators work on the part of the expression immediately preceding the operator. For example, the expression <code class="language-plaintext highlighter-rouge">ba+b</code> would match the substrings <code class="language-plaintext highlighter-rouge">bab</code>, <code class="language-plaintext highlighter-rouge">baab</code> and <code class="language-plaintext highlighter-rouge">baaaaaaaaaaab</code>, among others. The expression <code class="language-plaintext highlighter-rouge">A[BCDE]*Z</code> would match the substrings <code class="language-plaintext highlighter-rouge">AZ</code>, <code class="language-plaintext highlighter-rouge">ADZ</code> or <code class="language-plaintext highlighter-rouge">ABCDEBCDEBCDEZ</code>, among others.</p>
+
+<p>An example with the testing program:</p>
+
+<sample-output>
+
+Please type in an expression: **1[234]\*5**
+Please type in a string: **15**
+Found!
+Please type in a string: **125**
+Found!
+Please type in a string: **145**
+Found!
+Please type in a string: **12342345**
+Found!
+Please type in a string: **126**
+Not found.
+Please type in a string: **165**
+Not found.
+
+</sample-output>
+
+<h3 id="other-special-characters">Other special characters</h3>
+
+<p>A dot is a wildcard character which can match any single character. For example, the expression <code class="language-plaintext highlighter-rouge">c...o</code> would match any five character substring beginning with a <code class="language-plaintext highlighter-rouge">c</code> and ending with an <code class="language-plaintext highlighter-rouge">o</code>, such as <code class="language-plaintext highlighter-rouge">c-3po</code> or <code class="language-plaintext highlighter-rouge">cello</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">^</code> character specifies that the match must be at the beginning of the string, and <code class="language-plaintext highlighter-rouge">$</code> specifies that the match must be at the end of the string. These can also be used to exclude from the matches any other characters than those specified:</p>
+
+<sample-output>
+
+Please type in an expression: **\^[123]\*$**
+Please type in a string: **4**
+Not found.
+Please type in a string: **1221**
+Found!
+Please type in a string: **333333333**
+Found!
+
+</sample-output>
+
+<p>Sometimes you need to match for the special characters reserved for regular expression syntax. The backslash <code class="language-plaintext highlighter-rouge">\</code> can be used to <em>escape</em> special characters. So, the expression <code class="language-plaintext highlighter-rouge">1+</code> matches one or more numbers <code class="language-plaintext highlighter-rouge">1</code>, but the expression <code class="language-plaintext highlighter-rouge">1\+</code> matches the string <code class="language-plaintext highlighter-rouge">1+</code>.</p>
+
+<sample-output>
+
+Please type in an expression: **^\\\***
+Please type in a string: **moi\***
+Not found.
+Please type in a string: **m\*o\*i**
+Not found.
+Please type in a string: **\*moi**
+Found!
+
+</sample-output>
+
+<p>Round brackets can be used to group together different parts of the expression. For example, the expression <code class="language-plaintext highlighter-rouge">(ab)+c</code> would match the substrings <code class="language-plaintext highlighter-rouge">abc</code>, <code class="language-plaintext highlighter-rouge">ababc</code> and <code class="language-plaintext highlighter-rouge">ababababababc</code>, but not the strings <code class="language-plaintext highlighter-rouge">ac</code> or <code class="language-plaintext highlighter-rouge">bc</code>, as the entire substring <code class="language-plaintext highlighter-rouge">ab</code> would have to appear at least once.</p>
+
+<sample-output>
+
+Please type in an expression: **^(jabba).\*(hut)$**
+Please type in a string: **jabba the hut**
+Found!
+Please type in a string: **jabba a hut**
+Found!
+Please type in a string: **jarjar the hut**
+Not found.
+Please type in a string: **jabba the smut**
+Not found.
+
+</sample-output>
+
+<programming-exercise name="Regular expressions" tmcname="part12-14_regular_expressions">
+
+Here are some exercises for familiarizing yourself with regular expression syntax.
+
+## Days of the week
+
+Using a regular expression, please write a function named `is_dotw(my_string: str)`. The function should return `True` if the string passed as an argument contains an abbreviation for a day of the week (Mon, Tue, Wed, Thu, Fri, Sat, Sun).
+
+Some examples of how the function should work:
+
+```python
+print(is_dotw("Mon"))
+print(is_dotw("Fri"))
+print(is_dotw("Tui"))
+```
+
+<sample-output>
+
+True
+True
+False
+
+</sample-output>
+
+## Check for vowels
+
+Please write a function named `all_vowels(my_string: str)` which uses a regular expression to check whether all characters in the given string are vowels.
+
+Some examples of how the function should work:
+
+```python
+print(all_vowels("eioueioieoieou"))
+print(all_vowels("autoooo"))
+```
+
+<sample-output>
+
+True
+False
+
+</sample-output>
+
+## Time of day
+
+Please write a function named `time_of_day(my_string: str)` which uses a regular expression to check whether a string in the format `XX:YY:ZZ` is a valid time in the 24-hour format, with two digits each for hours, minutes and seconds.
+
+Some examples of how the function should work:
+
+```python
+print(time_of_day("12:43:01"))
+print(time_of_day("AB:01:CD"))
+print(time_of_day("17:59:59"))
+print(time_of_day("33:66:77"))
+```
+
+<sample-output>
+
+True
+False
+True
+False
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="grand-finale">Grand finale</h2>
+
+<p>To finish off this part of the material, let’s work some more on objects and classes by building a slightly more extensive program. This exercise does not necessarily involve regular expressions, but the sections on <a href="/part-12/1-functions-as-arguments">functions as arguments</a> and <a href="/part-11/1-list-comprehensions">list comprehensions</a> will likely be useful.</p>
+
+<p>You may also find the example set in <a href="/part-10/4-application-development">part 10</a> helpful.</p>
+
+<programming-exercise name="Hockey statistics" tmcname="part12-15_hockey_statistics">
+
+In this exercise you will build an application for examining hockey league statistics from the NHL in a couple of different ways.
+
+The exercise template contains two JSON files: `partial.json` and `all.json`. The first of these is mostly meant for testing. The latter contains a lot of data, as all the NHL player stats for the 2019-20 season are included in the file.
+
+The entry for a single player is in the following format:
+
+```json
+{
+    "name": "Patrik Laine",
+    "nationality": "FIN",
+    "assists": 35,
+    "goals": 28,
+    "penalties": 22,
+    "team": "WPG",
+    "games": 68
+}
+```
+
+Both files contain a list of entries in the above format.
+
+If you need a refresher on handling JSON files, please take a look at [part 7 of this course material](/part-7/4-data-processing#reading-json-files).
+
+## Search and list
+
+Please write an interactive application which first asks for the name of the file, and then offers the following functions:
+
+- search by name for a single player's stats
+- list all the abbreviations for team names in alphabetical order
+- list all the abbreviations for countries in alphabetical order
+
+These functionalities grant you one exercise point. Your application should now work as follows:
+
+<sample-output>
+
+file name: **partial.json**
+read the data of 14 players
+
+commands:
+0 quit
+1 search for player
+2 teams
+3 countries
+4 players in team
+5 players from country
+6 most points
+7 most goals
+
+command: **1**
+name: **Travis Zajac**
+<pre>
+Travis Zajac         NJD   9 + 16 =  25
+</pre>
+
+command: **2**
+BUF
+CGY
+DAL
+NJD
+NYI
+OTT
+PIT
+WPG
+WSH
+
+command: **3**
+CAN
+CHE
+CZE
+SWE
+USA
+
+command: **0**
+
+</sample-output>
+
+NB: the printout format for a player must be exactly as follows:
+
+<sample-output>
+
+<pre>
+Leon Draisaitl       EDM  43 + 67 = 110
+Connor McDavid       EDM  34 + 63 =  97
+Travis Zajac         NJD   9 + 16 =  25
+Mike Green           EDM   3 +  8 =  11
+Markus Granlund      EDM   3 +  1 =   4
+123456789012345678901234567890123456789
+</pre>
+
+</sample-output>
+
+The last line in the sample above is there to help you calculate the widths of the different fields in the output; you should not print the numbers line yourself in your final submission. 
+
+The abbreviation for the team is printed from the 22nd character onwards. The `+` sign is the 30th character and the `=` sign is the 35th character. All the fields should be justified to the right edge. All whitespace is space characters.
+
+F-strings are probably the easiest way to achieve the required printout. The process is similar to [this exercise](/part-6/1-reading-files#programming-exercise-course-grading-part-3) from part 6.
+
+## List players by points
+
+These two functionalities will grant you a second exercise point:
+
+- list players in a specific team in the order of points scored, from highest to lowest. Points equals _goals_ + _assists_
+- list players from a specific country in the order of points scored, from highest to lowest
+
+Your application should now work as follows:
+
+<sample-output>
+
+file name: **partial.json**
+read the data of 14 players
+
+commands:
+0 quit
+1 search for player
+2 teams
+3 countries
+4 players in team
+5 players from country
+6 most points
+7 most goals
+
+command: **4**
+team: **OTT**
+<pre>
+Drake Batherson      OTT   3 +  7 =  10
+Jonathan Davidsson   OTT   0 +  1 =   1
+</pre>
+
+command: **5**
+country: **CAN**
+<pre>
+Jared McCann         PIT  14 + 21 =  35
+Travis Zajac         NJD   9 + 16 =  25
+Taylor Fedun         DAL   2 +  7 =   9
+Mark Jankowski       CGY   5 +  2 =   7
+Logan Shaw           WPG   3 +  2 =   5
+</pre>
+
+command: **0**
+
+</sample-output>
+
+## Most successful players
+
+These two functionalities will grant you a third exercise point:
+
+- list of `n` players who've scored the most points
+  - if two players have the same score, whoever has scored the higher number of goals comes first
+- list of `n` players who've scored the most goals
+  - if two players have the same number of goals, whoever has played the lower number of games comes first
+
+Your application should now work as follows:
+
+<sample-output>
+
+file name: **partial.json**
+read the data of 14 players
+
+commands:
+0 quit
+1 search for player
+2 teams
+3 countries
+4 players in team
+5 players from country
+6 most points
+7 most goals
+
+command: **6**
+how many: **2**
+<pre>
+Jakub Vrana          WSH  25 + 27 =  52
+Jared McCann         PIT  14 + 21 =  35
+</pre>
+
+command: **6**
+how many: **5**
+
+<pre>
+Jakub Vrana          WSH  25 + 27 =  52
+Jared McCann         PIT  14 + 21 =  35
+John Klingberg       DAL   6 + 26 =  32
+Travis Zajac         NJD   9 + 16 =  25
+Conor Sheary         BUF  10 + 13 =  23
+</pre>
+
+command: **7**
+how many: **6**
+
+<pre>
+Jakub Vrana          WSH  25 + 27 =  52
+Jared McCann         PIT  14 + 21 =  35
+Conor Sheary         BUF  10 + 13 =  23
+Travis Zajac         NJD   9 + 16 =  25
+John Klingberg       DAL   6 + 26 =  32
+Mark Jankowski       CGY   5 +  2 =   7
+</pre>
+
+command: **0**
+
+</sample-output>
+
+</programming-exercise>
+
+<p>Please respond to a quick questionnaire on this part of the course.</p>
+
+<quiz id="6a606b63-c674-5231-9e79-55d7372e582a"></quiz>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Code States Visualizer guide | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Code States Visualizer guide" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/docs/code-states-visualizer-guide.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/docs/code-states-visualizer-guide.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Code States Visualizer guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Code States Visualizer guide","url":"https://gapps123.github.io/programming-25/programming-25/docs/code-states-visualizer-guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <h1 id="code-states-visualizer-guide">Code States Visualizer guide</h1>
+
+<h2 id="adding-a-code-states-visualizer-in-a-markdown-file">Adding a Code States Visualizer in a markdown-file</h2>
+
+<p>Simply write the tag <code class="language-plaintext highlighter-rouge">&lt;code-states-visualizer input='ADD JSON HERE'&gt;&lt;/code-states-visualizer&gt;</code></p>
+
+<p>Note, that since the input json contains double quotes, we recommend using single quotes around the input. This way there’s no need to escape any double quotes in the input json. For this reason, we also recommend using double quotes in your python example code, because otherwise you need to escape every single quote in the input you generate.</p>
+
+<p>Here’s an example of a Code States Visualizer in a markdown-file:</p>
+
+<p><img src="images/code-states-visualizer/markdown.png" alt="An example piece of code of a Code States Visualizer in a markdown file" title="An example piece of code of a Code States Visualizer in a markdown file" /></p>
+
+<h2 id="how-to-generate-the-input-json">How to generate the input json</h2>
+
+<ol>
+  <li>Go over to http://www.pythontutor.com/</li>
+  <li>Click the link labeled “Visualize your code and get live help now”</li>
+</ol>
+
+<p><img src="images/code-states-visualizer/pythontutor-frontpage.png" alt="Frontpage of www.pythontutor.com" title="Frontpage of www.pythontutor.com" /></p>
+
+<ol>
+  <li>Select Python 3.6 from the dropdown menu.</li>
+  <li>Write your example code in the field below the dropdown menu. <strong>Note</strong> that if your code contains quotes, we recommend using double quotes. If you use single quotes, you need to escape all of them in the json when adding the input to Code State Visualizer’s markdown.</li>
+  <li>Open your browser’s Network Monitor.</li>
+  <li>Click the button “Visualize execution” below the field where you wrote your code.</li>
+</ol>
+
+<p><img src="images/code-states-visualizer/pythontutor-editor.png" alt="Code editor page of www.pythontutor.com" title="Code editor page of www.pythontutor.com" /></p>
+
+<ol>
+  <li>Select the request with the domain “www.pythontutor.com”.</li>
+  <li>Go to the request’s Response-tab.</li>
+  <li>Right click the json and select copy all.</li>
+</ol>
+
+<p><img src="images/code-states-visualizer/network-monitor.png" alt="Browser's Network Monitor tool showing a response of a request" title="Browser's Network Monitor tool showing a response of a request" /></p>
+
+<ol>
+  <li>Paste the json to the input-part of the tag <code class="language-plaintext highlighter-rouge">code-states-visualizer input=''&gt;</code> in your markdown-file.</li>
+</ol>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

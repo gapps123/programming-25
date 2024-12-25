@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Encapsulation | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Encapsulation" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-9/3-encapsulation.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-9/3-encapsulation.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Encapsulation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Encapsulation","url":"https://gapps123.github.io/programming-25/programming-25/data/part-9/3-encapsulation.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know what encapsulation means
+- You will be able to create private attributes
+- You will know how to create getters and setters for your attributes
+
+</text-box>
+
+<p>In object oriented programming the term <em>client</em> refers to a program which uses a class, or instances of a class. A class offers the client <em>services</em> through which the client can access the objects created based on the class. The goals here are that</p>
+
+<p>1) the use of a class and/or objects is as simple as possible from the client’s point of view
+2) the <em>integrity</em> of any object is preserved at all times</p>
+
+<p>The integrity of an object means that the <em>state</em> of an object always remains acceptable. In practice this means that the values of the object’s attributes are always acceptable. For example, an object representing a date should never have 13 as the value of the month, an object modelling a student should never have a negative number as the value of study credits attained, and so forth.</p>
+
+<p>Let’s take a look at a class named Student:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">student_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">student_number</span> <span class="o">=</span> <span class="n">student_number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">study_credits</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">add_credits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">study_credits</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">study_credits</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">study_credits</span> <span class="o">+=</span> <span class="n">study_credits</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Student</code> object offers its clients the method <code class="language-plaintext highlighter-rouge">add_credits</code>, which allows the client to add a specified number of credits to the student’s total. The method ensures the value passed as the argument is above zero. The following code adds study credits on three occasions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sally</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Sally Student"</span><span class="p">,</span> <span class="s">"12345"</span><span class="p">)</span>
+<span class="n">sally</span><span class="p">.</span><span class="n">add_credits</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sally</span><span class="p">.</span><span class="n">add_credits</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sally</span><span class="p">.</span><span class="n">add_credits</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Study credits:"</span><span class="p">,</span> <span class="n">sally</span><span class="p">.</span><span class="n">study_credits</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Study credits: 20
+
+</sample-output>
+
+<p>Despite the method definition it is still possible to access the <code class="language-plaintext highlighter-rouge">study_credits</code> attribute directly. This could result in an erroneous state where the integrity of the object is lost:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sally</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Sally Student"</span><span class="p">,</span> <span class="s">"12345"</span><span class="p">)</span>
+<span class="n">sally</span><span class="p">.</span><span class="n">study_credits</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Study credits:"</span><span class="p">,</span> <span class="n">sally</span><span class="p">.</span><span class="n">study_credits</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Study credits: -100
+
+</sample-output>
+
+<h2 id="encapsulation">Encapsulation</h2>
+
+<p>A common feature in object oriented programming languages is that classes can usually hide their attributes from any prospective clients. Hidden attributes are usually called <em>private</em>. In Python this privacy is achieved by adding two underscores <code class="language-plaintext highlighter-rouge">__</code> to the beginning of the attribute name:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CreditCard</span><span class="p">:</span>
+    <span class="c1"># the attribute number is private, while the attribute name is accessible
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</code></pre></div></div>
+
+<p>A private attribute is not directly visible to the client. Trying to refer to it causes an error. In the above example the <code class="language-plaintext highlighter-rouge">name</code> attribute can be easily accessed and changed:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">card</span> <span class="o">=</span> <span class="n">CreditCard</span><span class="p">(</span><span class="s">"123456"</span><span class="p">,</span><span class="s">"Randy Riches"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">card</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Charlie Churchmouse"</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Randy Riches
+Charlie Churchmouse
+
+</sample-output>
+
+<p>Trying to print out the card number, however, causes and error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">card</span> <span class="o">=</span> <span class="n">CreditCard</span><span class="p">(</span><span class="s">"123456"</span><span class="p">,</span><span class="s">"Randy Riches"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">__number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+AttributeError: 'CreditCard' object has no attribute '__number'
+
+</sample-output>
+
+<p>Hiding attributes from clients is called <em>encapsulation</em>. As the name implies, the attribute is “enclosed in a capsule”. The client is then offered a suitable interface for accessing and processing the data stored in the object.</p>
+
+<p>Let’s add another encapsulated attribute: the balance on the credit card. This time we’ll also add publicly visible methods which allow the client to access and change the balance:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CreditCard</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="n">balance</span>
+
+    <span class="k">def</span> <span class="nf">deposit_money</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">+=</span> <span class="n">amount</span>
+
+    <span class="k">def</span> <span class="nf">withdraw_money</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">-=</span> <span class="n">amount</span>
+
+    <span class="k">def</span> <span class="nf">retrieve_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">card</span> <span class="o">=</span> <span class="n">CreditCard</span><span class="p">(</span><span class="s">"123456"</span><span class="p">,</span> <span class="s">"Randy Riches"</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">retrieve_balance</span><span class="p">())</span>
+<span class="n">card</span><span class="p">.</span><span class="n">deposit_money</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">retrieve_balance</span><span class="p">())</span>
+<span class="n">card</span><span class="p">.</span><span class="n">withdraw_money</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">retrieve_balance</span><span class="p">())</span>
+<span class="c1"># The following will not work because the balance is not sufficient
+</span><span class="n">card</span><span class="p">.</span><span class="n">withdraw_money</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">card</span><span class="p">.</span><span class="n">retrieve_balance</span><span class="p">())</span>
+</code></pre></div></div>
+
+<sample-output>
+
+5000
+5100
+4600
+4600
+
+</sample-output>
+
+<p>The balance cannot be changed directly because the attribute is private, but we’ve included the methods <code class="language-plaintext highlighter-rouge">deposit_money</code> and <code class="language-plaintext highlighter-rouge">withdraw_money</code> for changing the value. The method <code class="language-plaintext highlighter-rouge">retrieve_balance</code> returns the value stored in balance. The methods include some rudimentary checks for retaining the integrity of the object: for instance, the card cannot be overdrawn.</p>
+
+<programming-exercise name="Car" tmcname="part09-09_car">
+
+Please implement a class named `Car` which has two private, _encapsulated_ variables: the amount of petrol in the tank (0 to 60 litres) and odometer reading (in kilometres). The car consumes one litre of petrol per kilometre.
+
+The class should also contain the following methods:
+
+- `fill_up()` which fills up the tank
+- `drive(km:int)` which drives the car for the distance indicated, or for however long the petrol in the tank allows
+- `__str__` which returns a string representation of the car as per the examples below
+
+An example of how the class is used:
+
+```python
+car = Car()
+print(car)
+car.fill_up()
+print(car)
+car.drive(20)
+print(car)
+car.drive(50)
+print(car)
+car.drive(10)
+print(car)
+car.fill_up()
+car.fill_up()
+print(car)
+```
+
+<sample-output>
+
+Car: odometer reading 0 km, petrol remaining 0 litres
+Car: odometer reading 0 km, petrol remaining 60 litres
+Car: odometer reading 20 km, petrol remaining 40 litres
+Car: odometer reading 60 km, petrol remaining 0 litres
+Car: odometer reading 60 km, petrol remaining 0 litres
+Car: odometer reading 60 km, petrol remaining 60 litres
+
+</sample-output>
+
+**NB:** you are asked to encapsulate the amount of petrol left and the odometer reading. It should not be possible to access them directly from outside the class's own methods.
+
+</programming-exercise>
+
+<h2 id="a-brief-note-on-private-attributes-python-and-object-oriented-programming">A brief note on private attributes, Python and object oriented programming</h2>
+
+<p>There are ways around the underscore <code class="language-plaintext highlighter-rouge">__</code> notation for hiding attributes, which you may come across if you search for resources online. No Python attribute is truly private, and this is intentional on the part of the creators of Python. On the other hand, a Python programmer is generally expected to respect the visibility guidelines set in classes, and it takes a special effort to get around these. In other object oriented programming languages, such as Java, private variables are often truly hidden, and it is best if you think of private Python variables as such as well.</p>
+
+<h2 id="getters-and-setters">Getters and setters</h2>
+
+<p>In object oriented programming, methods which are dedicated to accessing and changing attributes are usually called <em>getters</em> and <em>setters</em>. Not all Python programmers use the terms “getter” and “setter”, but the concept of <em>properties</em> outlined below is very similar, which is why we will use the generally accepted object oriented programming terminology here.</p>
+
+<p>So, above we created some public methods for accessing private attributes, but there is a more straightforward, “pythonic” way of accessing attributes. Let’s have a look at a simple class named <code class="language-plaintext highlighter-rouge">Wallet</code> with a single, private attribute <code class="language-plaintext highlighter-rouge">money</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Wallet</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__money</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<p>We can add getter and setter methods for accessing the private attribute using the <code class="language-plaintext highlighter-rouge">@property</code> decorator:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Wallet</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__money</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># A getter method
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__money</span>
+
+    <span class="c1"># A setter method
+</span>    <span class="o">@</span><span class="n">money</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">money</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">money</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__money</span> <span class="o">=</span> <span class="n">money</span>
+</code></pre></div></div>
+
+<p>First, we define a getter method, which returns the amount of money currently in the wallet. Then we define a setter method, which sets a new value for the money attribute while making sure the new value is not negative.</p>
+
+<p>The new methods can be used like so:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wallet</span> <span class="o">=</span> <span class="n">Wallet</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">wallet</span><span class="p">.</span><span class="n">money</span><span class="p">)</span>
+
+<span class="n">wallet</span><span class="p">.</span><span class="n">money</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="k">print</span><span class="p">(</span><span class="n">wallet</span><span class="p">.</span><span class="n">money</span><span class="p">)</span>
+
+<span class="n">wallet</span><span class="p">.</span><span class="n">money</span> <span class="o">=</span> <span class="o">-</span><span class="mi">30</span>
+<span class="k">print</span><span class="p">(</span><span class="n">wallet</span><span class="p">.</span><span class="n">money</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+0
+50
+50
+
+</sample-output>
+
+<p>As far as the client is concerned, using these new methods is no different from directly accessing an attribute. Parentheses are not necessary; instead it is perfectly acceptable to state <code class="language-plaintext highlighter-rouge">wallet.money = 50</code>, as if we were simply assigning a value to a variable. Indeed, the purpose was to hide (i.e. encapsulate) the internal implementation of the attribute while offering an easy way of accessing and modifying the data stored in the object.</p>
+
+<p>The previous example has a small problem: the client is not notified of the failure to set a negative value for the money attribute. When a value supplied is clearly wrong, it is usually a good idea to raise an exception and thus let the client know. In this case the exception should probably be of type <code class="language-plaintext highlighter-rouge">ValueError</code> to signify that the value supplied was unacceptable.</p>
+
+<p>Here we have an improved version of the class, along with some code for testing it:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Wallet</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__money</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># A getter method
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__money</span>
+
+    <span class="c1"># A setter method
+</span>    <span class="o">@</span><span class="n">money</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">money</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">money</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__money</span> <span class="o">=</span> <span class="n">money</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"The amount must not be below zero"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wallet</span><span class="p">.</span><span class="n">money</span> <span class="o">=</span> <span class="o">-</span><span class="mi">30</span>
+<span class="k">print</span><span class="p">(</span><span class="n">wallet</span><span class="p">.</span><span class="n">money</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+ValueError: The amount must not be below zero
+
+</sample-output>
+
+<p><strong>NB:</strong> the getter method, i.e. the <code class="language-plaintext highlighter-rouge">@property</code> decorator, must be introduced before the setter method, or there will be an error when the class is executed. This is because the <code class="language-plaintext highlighter-rouge">@property</code> decorator defines the name of the “attribute” offerred to the client. The setter method, added with <code class="language-plaintext highlighter-rouge">.setter</code>, simply adds a new functionality to it.</p>
+
+<programming-exercise name="Recording" tmcname="part09-10_recording">
+
+Please create a class named `Recording` which models a single recording. The class should have one private variable: `__length` of type integer.
+
+Please implement the following:
+
+* a constructor which takes the length as an argument
+* a getter method `length` which returns the length of the recording
+* a setter method which sets the length of the recording
+
+It should be possible to make use of the class as follows:
+
+```python
+the_wall = Recording(43)
+print(the_wall.length)
+the_wall.length = 44
+print(the_wall.length)
+```
+
+<sample-output>
+
+43
+44
+
+</sample-output>
+
+
+If the argument for either the constructor or the setter method is below zero, this should raise a `ValueError`.
+
+If you need a refresher on raising exceptions, please see [part 6](/part-6/3-errors#raising-exceptions) of the course materials.
+
+</programming-exercise>
+
+<p>The following example has a class with two private attributes, along with getters and setters for both. Please try the program out with different values passed as arguments:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Player</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">player_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__player_number</span> <span class="o">=</span> <span class="n">player_number</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__name</span>
+
+    <span class="o">@</span><span class="n">name</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s">""</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"The name may not be an empty string"</span><span class="p">)</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">player_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__player_number</span>
+
+    <span class="o">@</span><span class="n">player_number</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">player_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">player_number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__player_number</span> <span class="o">=</span> <span class="n">player_number</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"The player number must be a positive integer"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span><span class="s">"Betty Ballmer"</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">player_number</span><span class="p">)</span>
+
+<span class="n">player</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Buster Ballmer"</span>
+<span class="n">player</span><span class="p">.</span><span class="n">player_number</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="k">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">player_number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Betty Ballmer
+10
+Buster Ballmer
+11
+
+</sample-output>
+
+<p>To finish off this section, let’s take a look at a class which models a simple diary. All attributes are private, but they are handled through differing interfaces: the owner of the diary has getter and setter methods, but the diary entries are processed with “traditional” methods. In this case it makes sense to deny the client all access to the internal data structure of the diary. Only the public methods are directly visible to the client.</p>
+
+<p>Encapsulation also ensures that the internal implementation of the class can be changed at will, provided that the public interface stays intact. The client does not have to know or care whether the internal data structure is based on lists, dictionaries, or something completely different.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Diary</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__entries</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">owner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__owner</span>
+
+    <span class="o">@</span><span class="n">owner</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">owner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">owner</span> <span class="o">!=</span> <span class="s">""</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"The owner may not be an empty string"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__entries</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">print_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"A total of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__entries</span><span class="p">),</span> <span class="s">"entries"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">__entries</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"- "</span> <span class="o">+</span> <span class="n">entry</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">diary</span> <span class="o">=</span> <span class="n">Diary</span><span class="p">(</span><span class="s">"Peter"</span><span class="p">)</span>
+<span class="n">diary</span><span class="p">.</span><span class="n">add_entry</span><span class="p">(</span><span class="s">"Today I ate porridge"</span><span class="p">)</span>
+<span class="n">diary</span><span class="p">.</span><span class="n">add_entry</span><span class="p">(</span><span class="s">"Today I learned object oriented programming"</span><span class="p">)</span>
+<span class="n">diary</span><span class="p">.</span><span class="n">add_entry</span><span class="p">(</span><span class="s">"Today I went to bed early"</span><span class="p">)</span>
+<span class="n">diary</span><span class="p">.</span><span class="n">print_entries</span><span class="p">()</span>
+</code></pre></div></div>
+
+<sample-output>
+
+A total of 3 entries
+- Today I ate porridge
+- Today I learned object oriented programming
+- Today I went to bed early
+
+</sample-output>
+
+<programming-exercise name="Weather station" tmcname="part09-11_weather_station">
+
+Please create a class named `WeatherStation` which is used to store observations about the weather. The class should have the following public attributes:
+
+* a constructor which takes the name of the station as its argument
+* a method named `add_observation(observation: str)` which adds an observation as the last entry in a list
+* a method named `latest_observation()` which returns the latest observation added to the list. If there are no observations yet, the method should return an _empty string_.
+* a method named `number_of_observations()` which returns the total number of observations added
+* a `__str__` method which returns the name of the station and the total number of observations added as per the example below.
+
+All attributes should be encapsulated, so they can't be directly accessed. It is up to you how you implement the class, as long as the public interface is exactly as described above.
+
+An example of how the class is used:
+
+```python
+station = WeatherStation("Houston")
+station.add_observation("Rain 10mm")
+station.add_observation("Sunny")
+print(station.latest_observation())
+
+station.add_observation("Thunderstorm")
+print(station.latest_observation())
+
+print(station.number_of_observations())
+print(station)
+```
+
+<sample-output>
+
+Sunny
+Thunderstorm
+3
+Houston, 3 observations
+
+</sample-output>
+
+</programming-exercise>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

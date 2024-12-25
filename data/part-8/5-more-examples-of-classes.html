@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>More examples of classes | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="More examples of classes" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-8/5-more-examples-of-classes.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-8/5-more-examples-of-classes.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="More examples of classes" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"More examples of classes","url":"https://gapps123.github.io/programming-25/programming-25/data/part-8/5-more-examples-of-classes.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will be able to create more versatile classes
+- You will know how to add a `__str__` method to your class definitions
+
+</text-box>
+
+<h2 id="example-1-the-rectangle-class">Example 1: the Rectangle class</h2>
+
+<p>Let’s have a look at a class which models a rectangle in two-dimensional space:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_upper</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">right_lower</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">left_upper</span> <span class="o">=</span> <span class="n">left_upper</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">right_lower</span> <span class="o">=</span> <span class="n">right_lower</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">right_lower</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">left_upper</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">right_lower</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">left_upper</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span>
+
+    <span class="k">def</span> <span class="nf">perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_change</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_change</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">corner</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">left_upper</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">left_upper</span> <span class="o">=</span> <span class="p">(</span><span class="n">corner</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x_change</span><span class="p">,</span> <span class="n">corner</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">y_change</span><span class="p">)</span>
+        <span class="n">corner</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">right_lower</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">right_lower</span> <span class="o">=</span> <span class="p">(</span><span class="n">corner</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x_change</span><span class="p">,</span> <span class="n">corner</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">y_change</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>A new <code class="language-plaintext highlighter-rouge">Rectangle</code> is created with two tuples as arguments. These tuples contain the x and y coordinates of the upper left corner and the lower right corner. The constructor calculates the height and width of the rectangle based on these values.</p>
+
+<p>The methods <code class="language-plaintext highlighter-rouge">area</code> and <code class="language-plaintext highlighter-rouge">perimeter</code> calculate the area and perimeter of the rectangle based on the height and width. The method <code class="language-plaintext highlighter-rouge">move</code> moves the rectangle by the x and y values given as arguments.</p>
+
+<p>The rectanlge is represented in a coordinate system where the x coordinates increase from left to right, and the y coordinates increase from top to bottom. This is a common way of handling coordinates in programming because it is often easier and more natural to consider the top left corner of the computer screen as the point where x and y equal zero.</p>
+
+<p>The following program tests the <code class="language-plaintext highlighter-rouge">Rectangle</code> class:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">left_upper</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">right_lower</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">width</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">perimeter</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">area</span><span class="p">())</span>
+
+<span class="n">rectangle</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">left_upper</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">.</span><span class="n">right_lower</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+(1, 1)
+(4, 3)
+3
+2
+10
+6
+(4, 4)
+(7, 6)
+
+</sample-output>
+
+<h2 id="printing-an-object">Printing an object</h2>
+
+<p>When you have an object created from a class defined by yourself, the default reaction to calling the <code class="language-plaintext highlighter-rouge">print</code> command with that object as its argument is not very informative:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The printout should look a bit like this:</p>
+
+<sample-output>
+
+&lt;__main__.Rectangle object at 0x000002D7BF148A90&gt;
+
+</sample-output>
+
+<p>Obviously, we want more control over what is printed out. The easiest way to do this is to add a special <code class="language-plaintext highlighter-rouge">__str__</code> method to the class definition. Its purpose is to return a snapshot of the state of the object in string format. If the class definition contains a <code class="language-plaintext highlighter-rouge">__str__</code> method, the value returned by the method is the one printed out when the <code class="language-plaintext highlighter-rouge">print</code> command is executed.</p>
+
+<p>So, let’s add a <code class="language-plaintext highlighter-rouge">__str__</code> method definition to our <code class="language-plaintext highlighter-rouge">Rectangle</code> class:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+
+    <span class="c1"># ...the rest of the class goes here the same as above...
+</span>
+    <span class="c1"># This method returns the state of the object in string format
+</span>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s">"rectangle </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">left_upper</span><span class="si">}</span><span class="s"> ... </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">right_lower</span><span class="si">}</span><span class="s">"</span>
+</code></pre></div></div>
+
+<p>Now the <code class="language-plaintext highlighter-rouge">print</code> command produces something more user-friendly:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+rectangle (1, 1) ... (4, 3)
+
+</sample-output>
+
+<p>The <code class="language-plaintext highlighter-rouge">__str__</code> method is perhaps more often used for formulating a string representation of the object with the <code class="language-plaintext highlighter-rouge">str</code> function, as seen in the following program:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">str_rep</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">str_rep</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+rectangle (1, 1) ... (4, 3)
+
+</sample-output>
+
+<p>There are many more special underscored methods which can be defined for classes. One rather similar to the <code class="language-plaintext highlighter-rouge">__str__</code> method is the <code class="language-plaintext highlighter-rouge">__repr__</code> method. Its purpose is to provide a technical representation of the state of the object. We will come across this method later.</p>
+
+<programming-exercise name="Stopwatch" tmcname="part08-13_stopwatch">
+
+The exercise template contains the following skeleton for the `Stopwatch` class:
+
+```python
+class Stopwatch:
+    def __init__(self):
+        self.seconds = 0
+        self.minutes = 0
+```
+
+Please add to the class definition so that it works as follows:
+
+```python
+watch = Stopwatch()
+for i in range(3600):
+    print(watch)
+    watch.tick()
+```
+
+<sample-output>
+
+00:00
+00:01
+00:02
+... many more lines printed out
+00:59
+01:00
+01:01
+... many, many more lines printed out
+59:58
+59:59
+00:00
+00:01
+
+</sample-output>
+
+So, the method `tick` adds one second to the stopwatch. The maximum value for both seconds and minutes is 59. Your class definition should also contain a `__str__` method, which returns a string representation of the state of the stopwatch, as shown in the example above.
+
+**Hint:** it might make it easier to test the `tick` method if you temporarily set the initial values of the seconds and minutes to some value closer to 59 in the constructor. If you do change the initial values, remember to change them back before submitting.
+
+</programming-exercise>
+
+<programming-exercise name="Clock" tmcname="part08-14_clock">
+
+Please define a new class named `Clock` which expands on the capabilities of your `Stopwatch` class. It should work as follows:
+
+```python
+clock = Clock(23, 59, 55)
+print(clock)
+clock.tick()
+print(clock)
+clock.tick()
+print(clock)
+clock.tick()
+print(clock)
+clock.tick()
+print(clock)
+clock.tick()
+print(clock)
+clock.tick()
+print(clock)
+
+clock.set(12, 5)
+print(clock)
+```
+
+<sample-output>
+23:59:55
+23:59:56
+23:59:57
+23:59:58
+23:59:59
+00:00:00
+00:00:01
+12:05:00
+</sample-output>
+
+As you can see above, the constructor should take initial values for the hours, minutes and seconds as arguments, and set these appropriately. The `tick` method adds one second to the clock. The `set` method sets new values for the hours and the minutes, and _sets the seconds to zero_.
+
+</programming-exercise>
+
+<programming-exercise name="LunchCard" tmcname="part08-15_lunchcard">
+
+At Unicafe, the student cafeteria at the University of Helsinki, students can pay for their lunch with a special debit card.
+
+In this exercise you will write a class called `LunchCard`, with the purpose of emulating the functions provided by the cafeteria's debit card.
+
+### The structure of the new class
+
+Please create a new class named `LunchCard`.
+
+First write the constructor for the class. It should take the initial balance available on the card as an argument, and save it as an attribute. This is provided for you in the skeleton below.
+
+Next, write a `__str__` method, which returns a string containing the balance: "The balance is X euros". The available balance should be printed out with one decimal place precision. Please see the example below for usage.
+
+Here is a skeleton implementation for the class:
+
+```python
+class LunchCard:
+    def __init__(self, balance: float):
+        self.balance = balance
+
+    def __str__(self):
+        pass
+```
+
+A usage example:
+
+```python
+card = LunchCard(50)
+print(card)
+```
+
+Executing the above should produce the following printout:
+
+<sample-output>
+
+The balance is 50.0 euros
+
+</sample-output>
+
+### Paying for lunch
+
+Please implement the following methods in your LunchCard class:
+
+- `eat_lunch` subtracts 2.60 euros from the balance on the card
+- `eat_special` subtracts 4.60 euros from the balance on the card
+
+You can use the following main function to test your class:
+
+```python
+card = LunchCard(50)
+print(card)
+
+card.eat_lunch()
+print(card)
+
+card.eat_special()
+card.eat_lunch()
+print(card)
+```
+
+This should produce the following printout:
+
+<sample-output>
+
+The balance is 50.0 euros
+The balance is 47.4 euros
+The balance is 40.2 euros
+
+</sample-output>
+
+Make sure the balance is never allowed to reach numbers below zero:
+
+```python
+card = LunchCard(4)
+print(card)
+
+card.eat_lunch()
+print(card)
+
+card.eat_lunch()
+print(card)
+```
+
+<sample-output>
+
+The balance is 4.0 euros
+The balance is 1.4 euros
+The balance is 1.4 euros
+
+</sample-output>
+
+If there is not enough money on the card to pay for the lunch, the price of the lunch should not be subtracted from the balance.
+
+### Depositing money on the card
+
+Implement the `deposit_money` method in your `LunchCard` class.
+
+The method increases the balance on the card by the amount given as an argument.
+
+```python
+card = LunchCard(10)
+print(card)
+card.deposit_money(15)
+print(card)
+card.deposit_money(10)
+print(card)
+card.deposit_money(200)
+print(card)
+```
+
+<sample-output>
+
+The balance is 10.0 euros
+The balance is 25.0 euros
+The balance is 35.0 euros
+The balance is 235.0 euros
+
+</sample-output>
+
+The method should account for arguments below zero by [raising an exception](/part-6/3-errors#raising-exceptions) of type `ValueError`:
+
+```python
+card = LunchCard(10)
+card.deposit_money(-10)
+```
+
+<sample-output>
+
+File "testi.py", line 3, in lunchcard
+ValueError: You cannot deposit an amount of money less than zero
+
+</sample-output>
+
+**NB:** this method should _raise_ an exception. Please see the instructions for raising exceptions in [part 6](/part-6/3-errors#raising-exceptions). Under no circumstances should the method itself print out anything - the example above is a printout from the Python interpreter coming across the exception.
+
+### Multiple cards
+
+Please write a main function which contains the following sequence of events:
+
+- Create a lunch card for Peter. The initial balance on the card is 20 euros.
+- Create a lunch card for Grace. The initial balance on the card is 30 euros.
+- Peter eats a special
+- Grace eats a regular lunch
+- _Print out the balance on each card (on separate lines, with the name of the owner at the beginning of the line)_
+- Peter deposits 20 euros
+- Grace eats the special
+- _Print out the balance on each card (on separate lines, with the name of the owner at the beginning of the line)_
+- Peter eats a regular lunch
+- Peter eats a regular lunch
+- Grace deposits 50 euros
+- _Print out the balance on each card (on separate lines, with the name of the owner at the beginning of the line)_
+
+Body of the main program
+
+```python
+peters_card = LunchCard(20)
+graces_card = LunchCard(30)
+# the rest of your main function
+```
+
+Your main function should print out exactly the following:
+
+<sample-output>
+
+Peter: The balance is 15.4 euros
+Grace: The balance is 27.4 euros
+Peter: The balance is 35.4 euros
+Grace: The balance is 22.8 euros
+Peter: The balance is 30.2 euros
+Grace: The balance is 72.8 euros
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="example-2-task-list">Example 2: Task list</h2>
+
+<p>The following class <code class="language-plaintext highlighter-rouge">TaskList</code> models a list of tasks:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TaskList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">priority</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">priority</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">get_next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="c1"># The list method pop removes and returns the last item in a list
+</span>        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="c1"># Return the name of the task (the second item in the tuple)
+</span>        <span class="k">return</span> <span class="n">task</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">number_of_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<p>The method <code class="language-plaintext highlighter-rouge">add_task</code> adds a new task to the list. Each task also has a priority attached, which is used for sorting the tasks. The method <code class="language-plaintext highlighter-rouge">get_next</code> removes and returns the task with the highest priority on the list. There is also the <code class="language-plaintext highlighter-rouge">number_of_tasks</code> method, which returns the number of tasks on the list, and finally the method <code class="language-plaintext highlighter-rouge">clear_tasks</code>, which clears the task list.</p>
+
+<p>Within the object, the tasks are stored in a list. Each task is of a tuple containing the priority of the task and its name. The priority value is stored first, so that when the list is sorted, the task with the highest priority is the last item on the list. This is why we can then simply use the <code class="language-plaintext highlighter-rouge">pop</code> method to retrieve and remove the highest priority item.</p>
+
+<p>Please have a look at the following program with the task list in action:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tasks</span> <span class="o">=</span> <span class="n">TaskList</span><span class="p">()</span>
+<span class="n">tasks</span><span class="p">.</span><span class="n">add_task</span><span class="p">(</span><span class="s">"studying"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">tasks</span><span class="p">.</span><span class="n">add_task</span><span class="p">(</span><span class="s">"exercise"</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">tasks</span><span class="p">.</span><span class="n">add_task</span><span class="p">(</span><span class="s">"cleaning"</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">number_of_tasks</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">get_next</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">number_of_tasks</span><span class="p">())</span>
+<span class="n">tasks</span><span class="p">.</span><span class="n">add_task</span><span class="p">(</span><span class="s">"date"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">number_of_tasks</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">get_next</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">get_next</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">number_of_tasks</span><span class="p">())</span>
+<span class="n">tasks</span><span class="p">.</span><span class="n">clear_tasks</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tasks</span><span class="p">.</span><span class="n">number_of_tasks</span><span class="p">())</span>
+</code></pre></div></div>
+
+<sample-output>
+
+3
+exercise
+2
+3
+date
+studying
+1
+0
+
+</sample-output>
+
+<programming-exercise name="Series" tmcname="part08-16_series">
+
+### A class named Series
+
+Please write a class named `Series` with the following functionality:
+
+```python
+dexter = Series("Dexter", 8, ["Crime", "Drama", "Mystery", "Thriller"])
+print(dexter)
+```
+
+<sample-output>
+
+Dexter (8 seasons)
+genres: Crime, Drama, Mystery, Thriller
+no ratings
+
+</sample-output>
+
+The constructor should take the title, the number of seasons and a list of genres for the series as its arguments.
+
+**Hint:** whenever you need to produce a string from a list containing strings, with a separating character of your choice in between the entries, you can use the `join` method as follows:
+
+```python
+genre_list = ["Crime", "Drama", "Mystery", "Thriller"]
+genre_string = ", ".join(genre_list)
+print(genre_string)
+```
+
+<sample-output>
+
+Crime, Drama, Mystery, Thriller
+
+</sample-output>
+
+### Adding reviews
+
+Please implement the method `rate(rating: int)` which lets you add a rating between 0 and 5 to any series object. You will also need to adjust the `__str__` method so that in case there are ratings, the method prints out the number of ratings added, and their average rounded to one decimal point.
+
+```python
+dexter = Series("Dexter", 8, ["Crime", "Drama", "Mystery", "Thriller"])
+dexter.rate(4)
+dexter.rate(5)
+dexter.rate(5)
+dexter.rate(3)
+dexter.rate(0)
+print(dexter)
+```
+
+<sample-output>
+
+Dexter (8 seasons)
+genres: Crime, Drama, Mystery, Thriller
+5 ratings, average 3.4 points
+
+</sample-output>
+
+### Searching for series
+
+Please implement these two functions which allow you to search through a list of series: `minimum_grade(rating: float, series_list: list)` and `includes_genre(genre: str, series_list: list)`.
+
+Here is an example of how the new methods are used:
+
+```python
+s1 = Series("Dexter", 8, ["Crime", "Drama", "Mystery", "Thriller"])
+s1.rate(5)
+
+s2 = Series("South Park", 24, ["Animation", "Comedy"])
+s2.rate(3)
+
+s3 = Series("Friends", 10, ["Romance", "Comedy"])
+s3.rate(2)
+
+series_list = [s1, s2, s3]
+
+print("a minimum grade of 4.5:")
+for series in minimum_grade(4.5, series_list):
+    print(series.title)
+
+print("genre Comedy:")
+for series in includes_genre("Comedy", series_list):
+    print(series.title)
+```
+
+<sample-output>
+
+a minimum rating of 4.5:
+Dexter
+genre Comedy:
+South Park
+Friends
+
+</sample-output>
+
+The code above and the automatic tests for this exercise assume your class contains an attribute `title`. If you used some other attribute name to refer to the name of the series, please change it before submitting.
+
+</programming-exercise>
+
+<p>Please respond to a quick questionnaire on this week’s materials.</p>
+
+<quiz id="65ee1264-957f-5547-b5a7-be4b3bd2be7e"></quiz>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

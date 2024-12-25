@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>More comprehensions | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="More comprehensions" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-11/2-more-comprehensions.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-11/2-more-comprehensions.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="More comprehensions" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"More comprehensions","url":"https://gapps123.github.io/programming-25/programming-25/data/part-11/2-more-comprehensions.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will be able to use comprehensions with strings
+- You will know how to use comprehensions with your own classes
+- You will be able to create dictionary comprehensions
+
+</text-box>
+
+<p>Lists are perhaps the most common target for comprehensions, but comprehensions work on any series of items, including strings. Just like in the list examples in the previous section, if a list comprehension is performed on a string, the items (i.e. the characters) in the string are plucked one by one, processed according to the expression given, and stored in a list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="s">"Peter Python"</span>
+
+<span class="n">uppercased</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">uppercased</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+['P', 'E', 'T', 'E', 'R', ' ', 'P', 'Y', 'T', 'H', 'O', 'N']
+
+</sample-output>
+
+<p>The result is indeed a list, as dictated by the bracket notation around the comprehension statement. If we wanted a string instead, we could use the string method <code class="language-plaintext highlighter-rouge">join</code> to parse the list into a string. Remember, the method is called on the string we want to use as the “glue” between the characters. Let’s take a look at some examples:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="s">"Peter"</span>
+<span class="n">char_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">char_list</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">char_list</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">char_list</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">","</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">char_list</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">" and "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">char_list</span><span class="p">))</span>
+</code></pre></div></div>
+
+<sample-output>
+
+['P', 'e', 't', 'e', 'r']
+Peter
+P e t e r
+P,e,t,e,r
+P and e and t and e and r
+
+</sample-output>
+
+<p>List comprehensions and the <code class="language-plaintext highlighter-rouge">join</code> method make it easy to create new strings based on other strings. We could, for example, make a string which contains only the vowels from another string:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_string</span> <span class="o">=</span> <span class="s">"Hello there, this is a test!"</span>
+
+<span class="n">vowels</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">test_string</span> <span class="k">if</span> <span class="n">character</span> <span class="ow">in</span> <span class="s">"aeiou"</span><span class="p">]</span>
+<span class="n">new_string</span> <span class="o">=</span> <span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">vowels</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+eoeeiiae
+
+</sample-output>
+
+<p>In the example above the list comprehension and the <code class="language-plaintext highlighter-rouge">join</code> method are on separate lines, but they could be combined into a single expression:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_string</span> <span class="o">=</span> <span class="s">"Hello there, this is a test!"</span>
+
+<span class="n">vowel_string</span> <span class="o">=</span> <span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="n">character</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">test_string</span> <span class="k">if</span> <span class="n">character</span> <span class="ow">in</span> <span class="s">"aeiou"</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">vowel_string</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Many Python programmers swear by these oneliners, so it is well worth your while to learn to read them. We could even add the <code class="language-plaintext highlighter-rouge">split</code> method to the mix, so that we can process entire sentences efficiently with a single statement. In the example below the first character from each word in a sentence is removed:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sentence</span> <span class="o">=</span> <span class="s">"Sheila keeps on selling seashells on the seashore"</span>
+
+<span class="n">sentence_no_initials</span> <span class="o">=</span> <span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">.</span><span class="n">split</span><span class="p">()])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sentence_no_initials</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+heila eeps n elling eashells n he eashore
+
+</sample-output>
+
+<p>Let’s go through this step by step:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">word[1:]</code> extracts a substring from the second character (at index 1) onwards</li>
+  <li><code class="language-plaintext highlighter-rouge">sentence.split()</code> splits the sentence into sections at the given character. In this case there is no argument given to the method, so the sentence is split at space characters by default</li>
+  <li><code class="language-plaintext highlighter-rouge">" ".join()</code> combines the items in the list into a new string using a space character between the items</li>
+</ul>
+
+<p>A more traditional iterative approach could look like this</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sentence</span> <span class="o">=</span> <span class="s">"Sheila keeps on selling seashells on the seashore"</span>
+
+<span class="n">word_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">sentence</span><span class="p">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="n">word_no_initials</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">word_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">word_no_initials</span><span class="p">)</span>
+
+<span class="n">sentence_no_initials</span> <span class="o">=</span> <span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">sentence_no_initials</span><span class="p">)</span>
+</code></pre></div></div>
+
+<programming-exercise name="Filter forbidden" tmcname="part11-08_filter_forbidden">
+
+Please write a function named `filter_forbidden(string: str, forbidden: str)` which takes two strings as its arguments. The function should return a new version of the first string. It should not contain any characters from the second string.
+
+The function should be implemented using list comprehensions. The maximum length of the function is three lines of code, including the header line beginning with the `def` keyword.
+
+Please have a look at the example below.
+
+```python
+sentence = "Once! upon, a time: there was a python!??!?!"
+filtered = filter_forbidden(sentence, "!?:,.")
+print(filtered)
+```
+
+<sample-output>
+
+Once upon a time there was a python
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="own-classes-and-comprehensions">Own classes and comprehensions</h2>
+
+<p>Comprehensions can be a useful tool for processing or formulating instances of your own classes, as we’ll see in the following examples.</p>
+
+<p>First, let’s have a look at the class <code class="language-plaintext highlighter-rouge">Country</code> which is a simple model for a single country, with attributes for the name and the population. In the main function below we first create some Country objects, and then use a list comprehension to select only those whose population is greater than five million.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Country</span><span class="p">:</span>
+    <span class="s">""" This class models a single country with population """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">population</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">finland</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Finland"</span><span class="p">,</span> <span class="mi">6000000</span><span class="p">)</span>
+    <span class="n">malta</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Malta"</span><span class="p">,</span> <span class="mi">500000</span><span class="p">)</span>
+    <span class="n">sweden</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Sweden"</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">)</span>
+    <span class="n">iceland</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Iceland"</span><span class="p">,</span> <span class="mi">350000</span><span class="p">)</span>
+
+    <span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="n">finland</span><span class="p">,</span> <span class="n">malta</span><span class="p">,</span> <span class="n">sweden</span><span class="p">,</span> <span class="n">iceland</span><span class="p">]</span>
+
+    <span class="n">bigger_countries</span> <span class="o">=</span> <span class="p">[</span><span class="n">country</span><span class="p">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span> <span class="k">if</span> <span class="n">country</span><span class="p">.</span><span class="n">population</span> <span class="o">&gt;</span> <span class="mi">5000000</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">bigger_countries</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<sample-output>
+
+Finland
+Sweden
+
+</sample-output>
+
+<p>In the list comprehension above we selected only the name attribute from the Country objects, so the contents of the list could be printed directly. We could also create a new list of the countries themselves and access the name attribute in the <code class="language-plaintext highlighter-rouge">for</code> loop. This would be useful if the same list of countries was used also later in the program, or if we needed the population attribute in the <code class="language-plaintext highlighter-rouge">for</code> loop as well:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">finland</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Finland"</span><span class="p">,</span> <span class="mi">6000000</span><span class="p">)</span>
+    <span class="n">malta</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Malta"</span><span class="p">,</span> <span class="mi">500000</span><span class="p">)</span>
+    <span class="n">sweden</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Sweden"</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">)</span>
+    <span class="n">iceland</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="s">"Iceland"</span><span class="p">,</span> <span class="mi">350000</span><span class="p">)</span>
+
+    <span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="n">finland</span><span class="p">,</span> <span class="n">malta</span><span class="p">,</span> <span class="n">sweden</span><span class="p">,</span> <span class="n">iceland</span><span class="p">]</span>
+
+    <span class="n">bigger_countries</span> <span class="o">=</span> <span class="p">[</span><span class="n">country</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span> <span class="k">if</span> <span class="n">country</span><span class="p">.</span><span class="n">population</span> <span class="o">&gt;</span> <span class="mi">5000000</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">bigger_countries</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">country</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">country</span><span class="p">.</span><span class="n">population</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In the next example we have a class named <code class="language-plaintext highlighter-rouge">RunningEvent</code> which models a single foot race event with attributes for the length and the name of the race. We will use list comprehensions to create <code class="language-plaintext highlighter-rouge">RunningEvent</code> objects based on a list of race lengths.</p>
+
+<p>The parameter <code class="language-plaintext highlighter-rouge">name</code> has a default value in the constructor of the <code class="language-plaintext highlighter-rouge">RunningEvent</code> class, whIch is why we do not need to pass the name as an argument.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">RunningEvent</span><span class="p">:</span>
+    <span class="s">""" The class models a foot race event of a length of n metres  """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"no name"</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">length</span><span class="si">}</span><span class="s"> m. (</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s">)"</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">42195</span><span class="p">]</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">RunningEvent</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">lengths</span><span class="p">]</span>
+
+    <span class="c1"># Print out all events
+</span>    <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+
+    <span class="c1"># Pick one from the list and give it a name
+</span>    <span class="n">marathon</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># the last item in the list
+</span>    <span class="n">marathon</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Marathon"</span>
+
+    <span class="c1"># Print out everything again, including the new name
+</span>    <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[100 m. (no name), 200 m. (no name), 1500 m. (no name), 3000 m. (no name), 42195 m. (no name)]
+[100 m. (no name), 200 m. (no name), 1500 m. (no name), 3000 m. (no name), 42195 m. (Marathon)]
+
+</sample-output>
+
+<p>Now, let’s find out what makes a series of items “comprehendible”. In the previous part we learnt how to make our own classes iterable. It is exactly this same feature which also allows for list comprehensions. If your own class is iterable, it can be used as the basis of a list comprehension statement. The following class definitions are copied directly from <a href="/part-10/3-oo-programming-techniques#iterators">part 10</a>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Book</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">author</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">author</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">page_count</span> <span class="o">=</span> <span class="n">page_count</span>
+
+<span class="k">class</span> <span class="nc">Bookshelf</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_books</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_book</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">book</span><span class="p">:</span> <span class="n">Book</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_books</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+
+    <span class="c1"># This is the iterator initialization method
+</span>    <span class="c1"># The iteration variable(s) should be initialized here
+</span>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># the method returns a reference to the object itself as 
+</span>        <span class="c1"># the iterator is implemented within the same class definition
+</span>        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># This method returns the next item within the object
+</span>    <span class="c1"># If all items have been traversed, the StopIteration event is raised
+</span>    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">n</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_books</span><span class="p">):</span>
+            <span class="c1"># Select the current item from the list within the object
+</span>            <span class="n">book</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_books</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">n</span><span class="p">]</span>
+            <span class="c1"># increase the counter (i.e. iteration variable) by one
+</span>            <span class="bp">self</span><span class="p">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># return the current item
+</span>            <span class="k">return</span> <span class="n">book</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># All books have been traversed
+</span>            <span class="k">raise</span> <span class="nb">StopIteration</span>
+
+<span class="c1"># Test your classes
+</span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">Book</span><span class="p">(</span><span class="s">"The Life of Python"</span><span class="p">,</span> <span class="s">"Montague Python"</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">Book</span><span class="p">(</span><span class="s">"The Old Man and the C"</span><span class="p">,</span> <span class="s">"Ernest Hemingjavay"</span><span class="p">,</span> <span class="mi">204</span><span class="p">)</span>
+    <span class="n">b3</span> <span class="o">=</span> <span class="n">Book</span><span class="p">(</span><span class="s">"A Good Cup of Java"</span><span class="p">,</span> <span class="s">"Caffee Coder"</span><span class="p">,</span> <span class="mi">997</span><span class="p">)</span>
+
+    <span class="n">shelf</span> <span class="o">=</span> <span class="n">Bookshelf</span><span class="p">()</span>
+    <span class="n">shelf</span><span class="p">.</span><span class="n">add_book</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+    <span class="n">shelf</span><span class="p">.</span><span class="n">add_book</span><span class="p">(</span><span class="n">b2</span><span class="p">)</span>
+    <span class="n">shelf</span><span class="p">.</span><span class="n">add_book</span><span class="p">(</span><span class="n">b3</span><span class="p">)</span>
+
+    <span class="c1"># Create a list containing the names of all books
+</span>    <span class="n">book_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">book</span><span class="p">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">shelf</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">book_names</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<programming-exercise name="Products in shopping list" tmcname="part11-09_products_in_shopping_list">
+
+In part 10 you created an [iterable shopping list](/part-10/3-oo-programming-techniques#programming-exercise-an-iterable-shopping-list), and we just learnt that an object created from an iterable class can be used with list comprehensions. The exercise template contains a stripped down version of the `ShoppingList` with just enough functionality to fulfil the requirements of this exercise.
+
+Please write a function named `products_in_shopping_list(shopping_list, amount: int)` which takes a ShoppingList object and an integer value as its arguments. The function returns a list of product names. The list should include only the products with at least the number of items specified by the `amount` parameter.
+
+The function should be implemented using list comprehensions. The maximum length of the function is two lines of code, including the header line beginning with the `def` keyword. The `ShoppingList` class definition should _not_ be modified.
+
+The function should work as follows:
+
+```python
+my_list = ShoppingList()
+my_list.add("bananas", 10)
+my_list.add("apples", 5)
+my_list.add("alcohol free beer", 24)
+my_list.add("pineapple", 1)
+
+print("the shopping list contains at least 8 of the following items:")
+for product in products_in_shopping_list(my_list, 8):
+    print(product)
+```
+
+<sample-output>
+
+the shopping list contains at least 8 of the following items:
+bananas
+alcohol free beer
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Price difference of cheaper properties" tmcname="part11-10_cheaper_properties">
+
+This exercise is a slightly modified version of the exercise [Comparing properties](/part-9/1-objects-and-references#programming-exercise-comparing-properties) from part 9.
+
+Please write a function named `cheaper_properties(properties: list, reference: RealProperty)` which takes a list of properties and a single RealProperty object as its arguments. The function should return a list containing only those properties in the original list which are cheaper than the reference property, along with the price difference. The items in the returned list should be tuples, where the first item is the property itself and the second is the difference in price.
+
+The function should be implemented using list comprehensions. The maximum length of the function is two lines of code, including the header line beginning with the `def` keyword.
+
+The code for the `RealProperty` class is included in the exercise template and should not be changed.
+
+An example of the function in action:
+
+```python
+a1 = RealProperty(1, 16, 5500, "Central studio")
+a2 = RealProperty(2, 38, 4200, "Two bedrooms downtown")
+a3 = RealProperty(3, 78, 2500, "Three bedrooms in the suburbs")
+a4 = RealProperty(6, 215, 500, "Farm in the middle of nowhere")
+a5 = RealProperty(4, 105, 1700, "Loft in a small town")
+a6 = RealProperty(25, 1200, 2500, "Countryside mansion")
+
+properties = [a1, a2, a3, a4, a5, a6]
+
+print(f"cheaper options when compared to {a3.description}:")
+for item in cheaper_properties(properties, a3):
+    print(f"{item[0].description:35} price difference {item[1]} euros")
+```
+
+<sample-output>
+
+cheaper options when compared to Three bedrooms in the suburbs:
+Central studio                                    price difference 107000 euros
+Two bedrooms downtown               price difference 35400 euros
+Farm in the middle of nowhere       price difference 87500 euros
+Loft in a small town                           price difference 16500 euros
+
+</sample-output>
+
+</programming-exercise>
+
+<h2 id="comprehensions-and-dictionaries">Comprehensions and dictionaries</h2>
+
+<p>There is nothing intrinsically “listey” about comprehensions. The result is a list because the comprehension statement is encased in square brackets, which indicate a Python list. Comprehensions work just as well with Python dictionaries if you use curly brackets instead. Remember, though, that dictionaries require key-value pairs. Both must be specified when a dictionary is created, also with comprehensions.</p>
+
+<p>The basis of a comprehension can be any iterable series, be it a list, a string, a tuple, a dictionary, any of your own iterable classes, and so forth.</p>
+
+<p>In the following example we use a string as the basis of a dictionary. The dictionary contains all the unique characters in the string, along with the number of times they occurred:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sentence</span> <span class="o">=</span> <span class="s">"hello there"</span>
+
+<span class="n">char_counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">character</span> <span class="p">:</span> <span class="n">sentence</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">char_counts</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+{'h': 2, 'e': 3, 'l': 2, 'o': 1, ' ': 1, 't': 1, 'r': 1}
+
+</sample-output>
+
+<p>The principle of the comprehension statement is exactly the same as with lists, but instead of a single value, the expression now consists of a key and a value. The general syntax looks like this:</p>
+
+<p><code class="language-plaintext highlighter-rouge">{&lt;key expression&gt; : &lt;value expression&gt; for &lt;item&gt; in &lt;series&gt;}</code></p>
+
+<p>To finish off this section, lets take a look at factorials again. This time we store the results in a dictionary. The number itself is the key, while the value is the result of the factorial from our function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="s">""" The function calculates the factorial n! for integers above zero """</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">*=</span> <span class="n">n</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">k</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">factorials</span> <span class="o">=</span> <span class="p">{</span><span class="n">number</span> <span class="p">:</span> <span class="n">factorial</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">factorials</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+{3: 6, 2: 2, 1: 1, 4: 24, 5: 120, 6: 720}
+
+</sample-output>
+
+<programming-exercise name="Lengths of strings" tmcname="part11-11_lengths_of_strings">
+
+Please write a function named `lengths(strings: list)` which takes a list of strings as its argument. The function should return a _dictionary_ with the strings in the list as the keys and their lengths as the values.
+
+The function should be implemented with a dictionary comprehension. The maximum length of the function is two lines of code, including the header line beginning with the `def` keyword.
+
+The function should work as follows:
+
+```python
+word_list = ["once", "upon" , "a", "time", "in"]
+
+word_lengths = lengths(word_list)
+print(word_lengths)
+```
+
+<sample-output>
+
+{'once': 4, 'upon': 4, 'a': 1, 'time': 4, 'in': 2}
+
+</sample-output>
+
+
+</programming-exercise>
+
+<programming-exercise name="Most common words" tmcname="part11-12_most_common_words">
+
+Please write a function named `most_common_words(filename: str, lower_limit: int)` which takes a filename and an integer value for a lower limit as its arguments. The function should return a dictionary containing the occurrences of the words which appear at least the number of times specified in the `lower_limit` parameter.
+
+For example, say the function was used to process a file named _comprehensions.txt_ with the following contents:
+
+```txt
+List comprehension is an elegant way to define and create lists based on existing lists.
+List comprehension is generally more compact and faster than normal functions and loops for creating list.
+However, we should avoid writing very long list comprehensions in one line to ensure that code is user-friendly.
+Remember, every list comprehension can be rewritten in for loop, but every for loop can’t be rewritten in the form of list comprehension.
+```
+
+When the function is called with the arguments `most_common_words("comprehensions.txt", 3)` it should return
+
+<sample-output>
+
+{'comprehension': 4, 'is': 3, 'and': 3, 'for': 3, 'list': 4, 'in': 3}
+
+</sample-output>
+
+NB: the case of letters affects the results, and all inflected forms are unique words in this exercise. That is, the words `List`, `lists` and `list` are each separate words here, and only `list` has enough occurrences to make it to the returned list. All punctutation should be removed before counting up the occurrences.
+
+It is up to you to decide how to implement this. The easiest way would likely be to make use of list and dictionary comprehensions.
+
+</programming-exercise>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Defining classes | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Defining classes" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-8/3-defining-classes.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-8/3-defining-classes.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Defining classes" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Defining classes","url":"https://gapps123.github.io/programming-25/programming-25/data/part-8/3-defining-classes.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know how to define your own classes
+- You will be able to create objects based on classes you've defined yourself
+- You will know how to write a constructor
+- You are familiar with the parameter name `self`
+- You will know what attributes are and how they are used
+
+</text-box>
+
+<p>A class is defined with the keyword <code class="language-plaintext highlighter-rouge">class</code>. The syntax is as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">NameOfClass</span><span class="p">:</span>
+    <span class="c1"># class defition goes here
+</span></code></pre></div></div>
+
+<p>Classes are usually named in <em>camel case</em>. This means that all the words in the class name are written together, without spaces, and each word is capitalised. The following class names follow this convention:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Weekday</code></li>
+  <li><code class="language-plaintext highlighter-rouge">BankAccount</code></li>
+  <li><code class="language-plaintext highlighter-rouge">LibraryDatabase</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PythonCourseGrades</code></li>
+</ul>
+
+<p>A single class definition should represent a single whole, the contents of which should be atomically linked together in some way. In more complicated programs classes can contain members of other classes. For example, the class <code class="language-plaintext highlighter-rouge">Course</code> could contain objects of class <code class="language-plaintext highlighter-rouge">Lecture</code>, <code class="language-plaintext highlighter-rouge">ExerciseSession</code> etc.</p>
+
+<p>Lets have a look at a skeleton of a class definition. The functionalities are still missing at this point.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+    <span class="k">pass</span>
+</code></pre></div></div>
+
+<p>The above piece of code tells Python that here we are defining a class named <code class="language-plaintext highlighter-rouge">BankAccount</code>. The class does not contain any functionality yet, but we can still create an object based on the class.</p>
+
+<p>Lets have a look at a program where two variables are added to a <code class="language-plaintext highlighter-rouge">BankAccount</code> object: <code class="language-plaintext highlighter-rouge">balance</code> and <code class="language-plaintext highlighter-rouge">owner</code>. Any variables attached to an object are called its <em>attributes</em>, or more specifically, <em>data attributes</em>, or sometimes <em>instance variables</em>.</p>
+
+<p>The attributes attached to an object can be accessed through the object:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">peters_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="n">peters_account</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="s">"Peter Python"</span>
+<span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mf">5.0</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Peter Python
+5.0
+
+</sample-output>
+
+<p>The data attributes are available only through the object they are attached to. Each <code class="language-plaintext highlighter-rouge">BankAccount</code> object created based on the <code class="language-plaintext highlighter-rouge">BankAccount</code> class has its own values attached to the data attributes. Those values can be accessed by referring to the object in question:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="n">account</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mf">155.50</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span> <span class="c1"># This refers to the data attribute balance attached to the account
+</span><span class="k">print</span><span class="p">(</span><span class="n">balance</span><span class="p">)</span> <span class="c1"># THIS CAUSES AN ERROR, as there is no such independent variable available, and the object reference is missing
+</span></code></pre></div></div>
+
+<h2 id="adding-a-constructor">Adding a constructor</h2>
+
+<p>In the above example we saw that a new instance of a class can be created by calling the constructor method of the class like so: <code class="language-plaintext highlighter-rouge">NameOfClass()</code>. Above we then attached data attributes to the object separately, but it is often more convenient to pass these initial values of attributes directly as the object is created. In the above example we first had a <code class="language-plaintext highlighter-rouge">BankAccount</code> object without these attributes, and the attributes only existed after they were explicitly declared.</p>
+
+<p>Declaring attributes outside the constructor results in a situation where different instances of the same class can have different attributes. The following code produces an error because we now have another <code class="language-plaintext highlighter-rouge">BankAccount</code> object, <code class="language-plaintext highlighter-rouge">paulas_account</code>, which does not contain the same attributes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">peters_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="n">peters_account</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="s">"Peter"</span>
+<span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mi">1400</span>
+
+<span class="n">paulas_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="n">paulas_account</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="s">"Paula"</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">paulas_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span> <span class="c1"># THIS CAUSES AN ERROR
+</span></code></pre></div></div>
+
+<p>So, instead of declaring attributes after each instance of the class is created, it is usually a better idea to initialize the values of the attributes as the class constructor is called. As the <code class="language-plaintext highlighter-rouge">BankAccount</code> class definition is currently just a skeleton, the constructor method is implicitly assumed by the Python interpreter, but it is possible to define your own constructor methods, and that is exactly what we will do now.</p>
+
+<p>A constructor method is a method declaration with the special name <code class="language-plaintext highlighter-rouge">__init__</code>, usually included at the very beginning of a class definition.</p>
+
+<p>Lets have a look at a <code class="language-plaintext highlighter-rouge">BankAccount</code> class with a constructor method added in:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+
+    <span class="c1"># The constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+</code></pre></div></div>
+
+<p>The name of the constructor method is always <code class="language-plaintext highlighter-rouge">__init__</code>. Notice the <em>two underscores on both sides</em> of the word <code class="language-plaintext highlighter-rouge">init</code>.</p>
+
+<p>The first parameter in a constructor definition is always named <code class="language-plaintext highlighter-rouge">self</code>. This refers to the object itself, and is necessary for declaring any attributes attached to the object. The assignment</p>
+
+<p><code class="language-plaintext highlighter-rouge">self.balance = balance</code></p>
+
+<p>assigns the balance received as an argument to the balance attribute of the object. It is a common convention to use the same variable names for the parameters and the data attributes defined in a constructor, but the variable names <code class="language-plaintext highlighter-rouge">self.balance</code> and <code class="language-plaintext highlighter-rouge">balance</code> above refer to <em>two different variables</em>:</p>
+
+<ul>
+  <li>
+    <p>The variable <code class="language-plaintext highlighter-rouge">self.balance</code> is an attribute of the object. Each <code class="language-plaintext highlighter-rouge">BankAccount</code> object has its own balance.</p>
+  </li>
+  <li>
+    <p>The variable <code class="language-plaintext highlighter-rouge">balance</code> is a parameter in the constructor method <code class="language-plaintext highlighter-rouge">__init__</code>. Its value is set to the value passed as an argument to the method as the constructor is called (that is, when a new instance of the class is created).</p>
+  </li>
+</ul>
+
+<p>Now that we have defined the parameters of the constructor method, we can pass the desired initial values of the data attributes as arguments as a new object is created:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+
+    <span class="c1"># The constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+
+<span class="c1"># As the method is called, no argument should be given for the self parameter
+# Python assigns the value for self automatically
+</span><span class="n">peters_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s">"Peter Python"</span><span class="p">)</span>
+<span class="n">paulas_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">(</span><span class="mi">20000</span><span class="p">,</span> <span class="s">"Paula Pythons"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">paulas_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+100
+20000
+
+</sample-output>
+
+<p>It is now much easier to work with the <code class="language-plaintext highlighter-rouge">BankAccount</code> objects, as the values can be passed at object creation, and the resulting two separate instances can be handled more predictably and uniformly. Declaring data attributes in the constructor also ensures the attributes are actually declared, and the desired initial values are always given by the programmer using the class.</p>
+
+<p>It is still possible to change the initial values of the data attributes later in the program:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+
+    <span class="c1"># The constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+
+<span class="n">peters_account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s">"Peter Python"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+
+<span class="c1"># Change the balance to 1500
+</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+
+<span class="c1"># Add 2000 to the balance
+</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="mi">2000</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+100
+1500
+3500
+
+</sample-output>
+
+<p>Let’s have a look at another example of classes and objects. We’ll write a class which models a single draw of lottery numbers:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+<span class="k">class</span> <span class="nc">LotteryDraw</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">round_week</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">round_date</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span> <span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">round_week</span> <span class="o">=</span> <span class="n">round_week</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">round_date</span> <span class="o">=</span> <span class="n">round_date</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">numbers</span> <span class="o">=</span> <span class="n">numbers</span>
+
+
+<span class="c1"># Create a new LotteryDraw object
+</span><span class="n">round1</span> <span class="o">=</span> <span class="n">LotteryDraw</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">33</span><span class="p">])</span>
+
+<span class="c1"># Tulostetaan tiedot
+</span><span class="k">print</span><span class="p">(</span><span class="n">round1</span><span class="p">.</span><span class="n">round_week</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">round1</span><span class="p">.</span><span class="n">round_date</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">round1</span><span class="p">.</span><span class="n">numbers</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+1
+2021-01-02
+1
+4
+8
+12
+13
+14
+33
+
+</sample-output>
+
+<p>As you can see above, the attributes can be of any type. Here, each LotteryDraw object has attributes of type <code class="language-plaintext highlighter-rouge">list</code> and <code class="language-plaintext highlighter-rouge">date</code>.</p>
+
+<programming-exercise name="Book" tmcname="part08-05_book">
+
+Please write a class named `Book` with the attributes `name`, `author`, `genre` and `year`, along with a constructor which assigns initial values to these attributes.
+
+Your class should work like this:
+
+```python
+python = Book("Fluent Python", "Luciano Ramalho", "programming", 2015)
+everest = Book("High Adventure", "Edmund Hillary", "autobiography", 1956)
+
+print(f"{python.author}: {python.name} ({python.year})")
+print(f"The genre of the book {everest.name} is {everest.genre}")
+```
+
+<sample-output>
+
+Luciano Ramalho: Fluent Python (2015)
+The genre of the book High Adventure is autobiography
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Three classes" tmcname="part08-06_three_classes">
+
+Please write the three classes specified below. Each class should have exactly the same names and types of attributes as listed.
+
+Please also include a constructor in each class. The constructor should take the initial values of the attributes as its arguments, in the order listed below.
+
+1. Class Checklist
+- attribute header (string)
+- attribute entries (list)
+
+2. Class Customer
+- attribute id (string)
+- attribute balance (float)
+- attribute discount (integer)
+
+3. Class Cable
+- attribute model (string)
+- attribute length (float)
+- attribute max_speed (integer)
+- attribute bidirectional (Boolean)
+
+</programming-exercise>
+
+<h2 id="using-objecs-formed-from-your-own-classes">Using objecs formed from your own classes</h2>
+
+<p>Objects formed from your own class definitions are no different from any other Python objects. They can be passed as arguments and return values just like any other object. We could, for example, write some helper functions for working with bank accounts:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># this function creates a new bank account object and returns it
+</span><span class="k">def</span> <span class="nf">open_account</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">new_account</span> <span class="o">=</span>  <span class="n">BankAccount</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_account</span>
+
+<span class="c1"># this function adds the amount passed as an argument to the balance of the bank account also passed as an argument
+</span><span class="k">def</span> <span class="nf">deposit_money_on_account</span><span class="p">(</span><span class="n">account</span><span class="p">:</span> <span class="n">BankAccount</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">account</span><span class="p">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">amount</span>
+
+<span class="n">peters_account</span> <span class="o">=</span> <span class="n">open_account</span><span class="p">(</span><span class="s">"Peter Python"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+
+<span class="n">deposit_money_on_account</span><span class="p">(</span><span class="n">peters_account</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">peters_account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+0
+500
+
+</sample-output>
+
+<programming-exercise name="Define class: Pet" tmcname="part08-07_pet">
+
+Please define the class `Pet`. The class should include a constructor, which takes the initial values of the attributes `name`, `species` and `year_of_birth` as its arguments, in that specific order.
+
+Please also write a function named `new_pet(name: str, species: str, year_of_birth: int)` _outside the class definition_. The function should create and return a new object of type `Pet`, as defined in the class `Pet`.
+
+An example of how the function is used:
+
+```python
+fluffy = new_pet("Fluffy", "dog", 2017)
+print(fluffy.name)
+print(fluffy.species)
+print(fluffy.year_of_birth)
+```
+
+<sample-output>
+
+Fluffy
+dog
+2017
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="The older book" tmcname="part08-08_older_book">
+
+Please write a function named `older_book(book1: Book, book2: Book)` which takes two objects of type `Book` as its arguments. The function should print out a message with the details of whichever is the older. It should print out a different message if the two books were written in the same year. Please see the examples below.
+
+```python
+python = Book("Fluent Python", "Luciano Ramalho", "programming", 2015)
+everest = Book("High Adventure", "Edmund Hillary", "autobiography", 1956)
+norma = Book("Norma", "Sofi Oksanen", "crime", 2015)
+
+older_book(python, everest)
+older_book(python, norma)
+```
+
+<sample-output>
+
+High Adventure is older, it was published in 1956
+Fluent Python and Norma were published in 2015
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Books of a genre" tmcname="part08-09_books_of_genre">
+
+Please write a function named `books_of_genre(books: list, genre: str)` which takes a list of objects of type `Book` and a string representing a genre as its arguments.
+
+The function should return a _new_ list, which contains the books with the desired genre from the original list. Please see the examples below.
+
+```python
+python = Book("Fluent Python", "Luciano Ramalho", "programming", 2015)
+everest = Book("High Adventure", "Edmund Hillary", "autobiography", 1956)
+norma = Book("Norma", "Sofi Oksanen", "crime", 2015)
+
+books = [python, everest, norma, Book("The Snowman", "Jo Nesbø", "crime", 2007)]
+
+print("Books in the crime genre:")
+for book in books_of_genre(books, "crime"):
+    print(f"{book.author}: {book.name}")
+```
+
+<sample-output>
+
+Books in the crime genre:
+Sofi Oksanen: Norma
+Jo Nesbø: The Snowman
+
+</sample-output>
+
+</programming-exercise>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Local and global variables | programming-25</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Local and global variables" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://gapps123.github.io/programming-25/programming-25/data/part-6/4-scope-of-variables.html" />
+<meta property="og:url" content="https://gapps123.github.io/programming-25/programming-25/data/part-6/4-scope-of-variables.html" />
+<meta property="og:site_name" content="programming-25" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Local and global variables" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Local and global variables","url":"https://gapps123.github.io/programming-25/programming-25/data/part-6/4-scope-of-variables.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/programming-25/assets/css/style.css?v=8fdccb165fdb68b261d29b53eab9f8c397ee01cf">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/programming-25/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gapps123.github.io/programming-25/programming-25/">programming-25</a></h1>
+      
+
+      <text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know what is meant by a local variable
+- You will know how the scope of a variable affects how it is used
+- You will know what the Python keyword `global`means
+- You will be able to use local and global variables in the correct contexts
+
+</text-box>
+
+<p>The <em>scope</em> of a variable refers to the sections of a program where a variable is accessible. A <em>local</em> variable is only accessible in a defined section of the program, while a <em>global</em> variable is available for use in any section of the program.</p>
+
+<h2 id="local-variables">Local variables</h2>
+
+<p>Variables defined within a Python function are local variables, only available within the function. This applies to both function parameters, and other variables defined within the function definition. A variable which is local to a function <em>does not exist outside the function</em>.</p>
+
+<p>In the following example we are trying to access the variable <code class="language-plaintext highlighter-rouge">x</code> in the main function, but this causes an error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">testing</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">testing</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+5
+NameError: name 'x' is not defined
+
+</sample-output>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">x</code> only exists while the function <code class="language-plaintext highlighter-rouge">testing</code> is being executed. Other functions or the main function cannot access the variable.</p>
+
+<h2 id="global-variables">Global variables</h2>
+
+<p>Variables defined within the main function are global variables. We previously defined the main function as those sections of code in a Python program which do not fall within any other function. The value stored in a global variable can be accessed from any other function in the program, so the following does not cause any errors:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">testing</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">testing</span><span class="p">()</span>
+</code></pre></div></div>
+
+<sample-output>
+
+3
+
+</sample-output>
+
+<p>A global variable cannot be changed directly from within another function. The following function <em>has no effect</em> on the value stored in the global variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">testing</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">testing</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+5
+3
+
+</sample-output>
+
+<p>Here the function <code class="language-plaintext highlighter-rouge">testing</code> creates a <em>new, local</em> variable <code class="language-plaintext highlighter-rouge">x</code>, which “masks” the global variable while the function is being executed. This variable has the value 5, but it is a different variable than the global <code class="language-plaintext highlighter-rouge">x</code> which is defined in the main function.</p>
+
+<p>But what would the following code do?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">testing</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">testing</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+UnboundLocalError: local variable 'x' referenced before assignment
+
+</sample-output>
+
+<p>The function <code class="language-plaintext highlighter-rouge">testing</code> assigns a value to the variable <code class="language-plaintext highlighter-rouge">x</code>, so Python interprets <code class="language-plaintext highlighter-rouge">x</code> to be a local variable instead of the global variable of the same name. The function attempts to access the variable before it is defined, so there is an error.</p>
+
+<p>If we wish to specify that we mean to change the global variable within a function, we will need the Python keyword <code class="language-plaintext highlighter-rouge">global</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">testing</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">testing</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+3
+3
+
+</sample-output>
+
+<p>Now the assignment <code class="language-plaintext highlighter-rouge">x = 3</code> within the function also affects the main function. All sections of the program are using the same global variable <code class="language-plaintext highlighter-rouge">x</code>.</p>
+
+<h2 id="when-should-you-use-global-variables">When should you use global variables?</h2>
+
+<p>Global variables are not a way to bypass function parameters or return values, and they should not be used as such. That is, it is <em>possible</em> to write a function which stores its results directly in a global variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">result</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">calculate_sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>It is better to write a function with a return value, as we are used to do by now:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">calculate_sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The advantage of the latter approach is that the function is an <em>independent</em> whole. It has certain, defined parameters, and it returns a result. It has no side effects, so it can be tested and changed independently of the other sections of the program.</p>
+
+<p>Global variables are useful in situations where we need to have some common, “higher level” information available to all functions in the program. The following is an example of just such a situation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="k">def</span> <span class="nf">calculate_difference</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+
+
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">calculate_sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">calculate_sum</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">calculate_difference</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">calculate_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"There were"</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="s">"function calls"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+5
+10
+3
+1
+There were 4 function calls
+
+</sample-output>
+
+<p>In this case we want to keep track of how many times either of the functions were called during the execution of the program. The global variable <code class="language-plaintext highlighter-rouge">count</code> is useful here, because we can increment it from the functions themselves as they are executed, but still access the final value in the main function.</p>
+
+<h2 id="passing-data-from-one-function-to-another-revisited">Passing data from one function to another, revisited</h2>
+
+<!--- see also section 4-6, some significant overlap-->
+<p>If a program consists of multiple functions, the question of passing data from one function to another often comes up.</p>
+
+<p>When we touched upon this topic <a href="/part-4/6-strings-and-lists#passing-data-from-one-function-to-another">previously</a>, we had a program which asks the user for some integer values, prints them out, and performs some statistical analysis on the numbers. The program was divided into three separate functions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">input_from_user</span><span class="p">(</span><span class="n">how_many</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Please type in </span><span class="si">{</span><span class="n">how_many</span><span class="si">}</span><span class="s"> numbers:"</span><span class="p">)</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">how_many</span><span class="p">):</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s">"Number </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">: "</span><span class="p">))</span>
+        <span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">numbers</span>
+
+<span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The numbers are: "</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s">"There are altogether </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="si">}</span><span class="s"> numbers, the mean is </span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s">, the smallest is </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="si">}</span><span class="s"> and the greatest is </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="si">}</span><span class="s">"</span>
+
+<span class="c1"># the main function using these functions
+</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">input_from_user</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">print_result</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">analysis_result</span> <span class="o">=</span> <span class="n">analyze</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">analysis_result</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>An example of the program’s execution:</p>
+
+<sample-output>
+
+Please type in 5 numbers:
+Number 1: 10
+Number 2: 34
+Number 3: -32
+Number 4: 99
+Number 5: -53
+The numbers are:
+10
+34
+-32
+99
+-53
+There are altogether 5 numbers, the mean is 11.6, the smallest is -53 and the greatest is 99
+
+</sample-output>
+
+<p>The basic principle here is that the main function “stores” the data processed by the program. Here, this means the numbers typed in by the user, which are stored in the variable <code class="language-plaintext highlighter-rouge">inputs</code>.</p>
+
+<p>If the numbers are needed in some function, the variable is passed as an argument, as seen above when the functions <code class="language-plaintext highlighter-rouge">print_result</code> and <code class="language-plaintext highlighter-rouge">analyze</code> are called. If the function produces a result that is relevant elsewhere in the program, the function returns this with a <code class="language-plaintext highlighter-rouge">return</code> statement, as seen with the functions <code class="language-plaintext highlighter-rouge">input_from_user</code> and <code class="language-plaintext highlighter-rouge">analyse</code> above.</p>
+
+<p>As always in programming, there are many ways to arrive at the same functionality. It would be possible to use the keyword <code class="language-plaintext highlighter-rouge">global</code> and have the functions directly access the <code class="language-plaintext highlighter-rouge">inputs</code> variable defined in the main function. There are good reasons why <a href="https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil">this is not a smart move</a>, however. If many different functions can access and potentially change a variable directly, it quickly becomes impossible to reliably track the state of the program, and the program risks becoming unpredictable. This is especially the case as the number of function involved grows large, as it is wont to do in large software projects.</p>
+
+<p>In conclusion, passing data into and out of functions is best handled by arguments and return values.</p>
+
+<p>You could also separate the implicit main function in the example above into its own, explicit <code class="language-plaintext highlighter-rouge">main</code> function. Then the variable <code class="language-plaintext highlighter-rouge">inputs</code> would no longer be a global variable, but instead a local variable within the <code class="language-plaintext highlighter-rouge">main</code> function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># your main function goes here
+</span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">input_from_user</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">analysis_result</span> <span class="o">=</span> <span class="n">analyze</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">analysis_result</span><span class="p">)</span>
+
+<span class="c1"># run the main function
+</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<!---
+A quiz to review the contents of this section:
+
+<quiz id="69694e01-4c47-5b9d-8a00-b0d96a477dc7"></quiz>
+-->
+
+<p>Please respond to a quick questionnaire on this week’s materials.</p>
+
+<quiz id="9662ad5e-7c21-52be-b107-44a017a27144"></quiz>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
