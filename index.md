@@ -1,4 +1,9 @@
-# programming-25
+---
+layout: default
+title: About this course
+---
+
+# Python Programming MOOC 2024
 
 **The course starts on January 15th, 2024.**
 
