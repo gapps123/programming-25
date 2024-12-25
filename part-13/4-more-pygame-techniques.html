@@ -1,0 +1,100 @@
+<text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know how the title of the pygame window
+- You will be able to draw shapes with pygame
+- You will know how to display text in your window
+
+</text-box>
+
+<h2 id="the-window-title">The window title</h2>
+
+<p>Your programs will look more professional if instead of “pygame window” the window title contains the actual name of the program.The title is set with the <code class="language-plaintext highlighter-rouge">pygame.display.set_caption</code> function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s">"Great Adventure"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="drawing-shapes">Drawing shapes</h2>
+
+<p>The following program draws a rectangle, a circle and a line on the screen:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="n">pygame</span><span class="p">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">))</span>
+<span class="n">display</span><span class="p">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">pygame</span><span class="p">.</span><span class="n">draw</span><span class="p">.</span><span class="n">rect</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">))</span>
+<span class="n">pygame</span><span class="p">.</span><span class="n">draw</span><span class="p">.</span><span class="n">circle</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">pygame</span><span class="p">.</span><span class="n">draw</span><span class="p">.</span><span class="n">line</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">160</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="p">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="nb">exit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Running the above code should look like this:</p>
+
+<p><img src="pygame_shapes.gif" /></p>
+
+<h2 id="drawing-text">Drawing text</h2>
+
+<p>Text in pygame is drawn in two steps: first we create an image containing the desired text, and then this image is drawn on the screen. It works like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="n">pygame</span><span class="p">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">))</span>
+<span class="n">display</span><span class="p">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">game_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">font</span><span class="p">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s">"Arial"</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">game_font</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">"Moikka!"</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">display</span><span class="p">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="p">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="nb">exit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Running the above code should look like this:</p>
+
+<p><img src="pygame_text.gif" /></p>
+
+<p>Here the method <code class="language-plaintext highlighter-rouge">pygame.font.SysFont</code> creates a font object, which uses the system font Arial in size 24. The the method <code class="language-plaintext highlighter-rouge">render</code> creates an image of the specified text in the given colour. This image is drawn on the window with the <code class="language-plaintext highlighter-rouge">blit</code> method, just as before.</p>
+
+<p>NB: different systems will have different fonts available. If the system this program is exeuted on doesn’t have the Arial font, even though Arial is a very common font available on most systems, the default system font is used instead. If you need to have a specific font available for your game, you can include the font file in the game directory and specify its location for the <code class="language-plaintext highlighter-rouge">pygame.font.Font</code> method.</p>
+
+<h2 id="exercises">Exercises</h2>
+
+<p>Here are some more advanced exercises for practicing what you have learned in this part of the course material.</p>
+
+<programming-exercise name="Clock" tmcname="part13-16_clock">
+
+Please write a program which displays a clock face which displays the system time. The end result should look like this:
+
+<img src="pygame_clock.gif" />
+
+</programming-exercise>
+
+<programming-exercise name="Asteroids" tmcname="part13-17_asteroids">
+
+Please create a game where asteroids fall from the sky. The player moves a robot left and right and tries to collect the falling rocks. The player gets a point for each asteroid collected, and the points total is shown at the top of the window. The game ends when the player misses an asteroid. The end result should look like this:
+
+<img src="pygame_asteroids.gif" />
+
+NB: the above animation is from the Finnish version of the course. You may use the word "Points" instead of the Finnish equivalent "Pisteet" depicted above.
+
+The exercise template contains the image `rock.png` for the asteroid.
+
+</programming-exercise>
+
+<p>Please respond to a quick questionnaire on this part of the course.</p>
+
+<quiz id="d8865dda-83f4-5d1b-b186-c2e6b90e0336"></quiz>
+

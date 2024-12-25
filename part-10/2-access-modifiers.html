@@ -1,0 +1,266 @@
+<text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will understand the access modifiers private and protected
+- You will know how the visibility of traits is determined in Python
+
+</text-box>
+
+<p>If a trait is defined as private in the base class, it is not directly accessible in any derived classes, as was briefly mentioned in the previous section. Let’s take a look at an example. In the <code class="language-plaintext highlighter-rouge">Notebook</code> class below the notes are stored in a list, and the list attribute is private:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">class</span> <span class="nc">Notebook</span><span class="p">:</span>
+    <span class="s">""" A Notebook stores notes in string format """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># private attribute
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__notes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__notes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">retrieve_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__notes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">all_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">","</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__notes</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>If the integrity of the class is key, making the list attribute <code class="language-plaintext highlighter-rouge">notes</code> private makes sense. The class provides the client with suitable methods for adding and browsing notes, after all. This approach becomes problematic if we define a new class <code class="language-plaintext highlighter-rouge">NotebookPro</code>, which inherits the <code class="language-plaintext highlighter-rouge">Notebook</code> class. The private list attribute is not accessible to the client, but neither is it accessible to the derived classes. If we try to access it, as in the <code class="language-plaintext highlighter-rouge">find_notes</code> method below, we get an error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">NotebookPro</span><span class="p">(</span><span class="n">Notebook</span><span class="p">):</span>
+    <span class="s">""" A better Notebook with search functionality """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is OK, the constructor is public despite the underscores
+</span>        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+
+    <span class="c1"># This causes an error
+</span>    <span class="k">def</span> <span class="nf">find_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_term</span><span class="p">):</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># the attribute __notes is private
+</span>        <span class="c1"># the derived class can't access it directly
+</span>        <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">__notes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="n">note</span><span class="p">:</span>
+                <span class="n">found</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">found</span>
+</code></pre></div></div>
+
+<sample-output>
+    
+AttributeError: 'NotebookPro' object has no attribute '_NotebookPro__notes'
+
+</sample-output>
+
+<h2 id="protected-traits">Protected traits</h2>
+
+<p>Many object oriented programming languages have a feature, usually a special keyword, for <em>protecting</em> traits. This means that a trait should be hidden from the clients of the class, but kept accessible to its subclasses. Python in general abhors keywords, so no such feature is directly available in Python. Instead, there is a <em>convention</em> of marking protected traits in a certain way.</p>
+
+<p>Remember, a trait can be hidden by prefixing its name with two underscores:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">__notes</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<p>The agreed convention to <em>protect</em> a trait is to prefix the name with a <em>single</em> underscore. Now, this is <em>just</em> a convention. Nothing prevents a programmer from breaking the convention, but it is considered a bad programming practice.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">_notes</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<p>Below we have the entire Notebook example, with protected <code class="language-plaintext highlighter-rouge">_notes</code> instead of private <code class="language-plaintext highlighter-rouge">__notes</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Notebook</span><span class="p">:</span>
+    <span class="s">""" A Notebook stores notes in string format """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># protected attribute
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">_notes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_notes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">retrieve_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_notes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">all_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">","</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_notes</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">NotebookPro</span><span class="p">(</span><span class="n">Notebook</span><span class="p">):</span>
+    <span class="s">""" A better Notebook with search functionality """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is OK, the constructor is public despite the underscores
+</span>        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+
+    <span class="c1"># This works, the protected attribute is accessible to the derived class
+</span>    <span class="k">def</span> <span class="nf">find_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_term</span><span class="p">):</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">_notes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="n">note</span><span class="p">:</span>
+                <span class="n">found</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">found</span>
+
+</code></pre></div></div>
+
+<p>Below we have a handy table for the visibility of attributes with different access modifiers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Access modifier</th>
+      <th style="text-align: center">Example</th>
+      <th style="text-align: center">Visible to client</th>
+      <th style="text-align: center">Visible to derived class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Public</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">self.name</code></td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Protected</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">self._name</code></td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Private</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">self.__name</code></td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">no</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Access modifiers work the same with all traits. For example, in the <code class="language-plaintext highlighter-rouge">Person</code> class below we have the protected method <code class="language-plaintext highlighter-rouge">capitalize_initials</code>. It can be used from the derived class <code class="language-plaintext highlighter-rouge">Footballer</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_name</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_capitalize_initials</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_capitalize_initials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">name_capitalized</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">name</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">):</span>
+            <span class="n">name_capitalized</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">name_capitalized</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__name</span>
+
+<span class="k">class</span> <span class="nc">Footballer</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># the method is available as it is protected in the base class
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__nickname</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_capitalize_initials</span><span class="p">(</span><span class="n">nickname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__position</span> <span class="o">=</span> <span class="n">position</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span>  <span class="sa">f</span><span class="s">"Footballer - name: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">_name</span><span class="si">}</span><span class="s">, nickname: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">__nickname</span><span class="si">}</span><span class="s">"</span>
+        <span class="n">r</span> <span class="o">+=</span> <span class="sa">f</span><span class="s">", position: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">__position</span><span class="si">}</span><span class="s">"</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+<span class="c1"># Test the classes
+</span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">jp</span> <span class="o">=</span> <span class="n">Footballer</span><span class="p">(</span><span class="s">"peter pythons"</span><span class="p">,</span> <span class="s">"pyper"</span><span class="p">,</span> <span class="s">"forward"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">jp</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<sample-output>
+
+Footballer - name: Peter Pythons, nickname: Pyper, position: forward
+
+</sample-output>
+
+<programming-exercise name="Supergroup" tmcname="part10-05_supergroup">
+
+The exercise template contains the class definition for a `SuperHero`.
+
+Please define a class named `SuperGroup` which represents a group of superheroes. The class should contain the following members:
+
+* **Protected** attributes name (str), location (str) and members (list)
+* A constructor which takes the name and location of the group as arguments, in that order
+* Getter methods for the name and location attributes
+* A method named `add_member(hero: SuperHero)` which adds a new member to the group
+* A method named `print_group` which prints out information about the group and its members, following the format specified below
+
+An example of the class in action:
+
+```python
+superperson = SuperHero("SuperPerson", "Superspeed, superstrength")
+invisible = SuperHero("Invisible Inca", "Invisibility")
+revengers = SuperGroup("Revengers", "Emerald City")
+
+revengers.add_member(superperson)
+revengers.add_member(invisible)
+revengers.print_group()
+```
+
+<sample-output>
+
+Revengers, Emerald City
+Members:
+SuperPerson, superpowers: Superspeed, superstrength
+Invisible Inca, superpowers: Invisibility
+
+</sample-output>
+
+If you need a refresher on getter and setter methods, please have a look at [this section in the previous part](/part-9/3-encapsulation#getters-and-setters) of the material.
+
+</programming-exercise>
+
+<programming-exercise name="Secret magic potion" tmcname="part10-06_secret_magic_potion">
+
+The exercise template contains the class definition for a `MagicPotion` which allows you to save a recipe for a magic potion. The class definition contains a constructor along with the methods
+
+* `add_ingredient(ingredient: str, amount: float)` and
+* `print_recipe()`
+
+Please define a class named `SecretMagicPotion` which inherits the `MagicPotion` class and allows you to also protect the recipe with a password.
+
+The new class should have a constructor which also takes the password string as an argument.
+
+The class should also contain the following methods:
+
+* `add_ingredient(ingredient: str, amount: float, password: str)`
+* `print_recipe(password: str)`
+
+If the password argument given to either of these methods is wrong, the methods should raise a `ValueError` exception.
+
+If the password is correct, each method should call the relevant method in the parent class. Do not copy and paste anything from the MagicPotion class.
+
+An example of how this would work:
+
+```python
+diminuendo = SecretMagicPotion("Diminuendo maximus", "hocuspocus")
+diminuendo.add_ingredient("Toadstool", 1.5, "hocuspocus")
+diminuendo.add_ingredient("Magic sand", 3.0, "hocuspocus")
+diminuendo.add_ingredient("Frogspawn", 4.0, "hocuspocus")
+diminuendo.print_recipe("hocuspocus")
+
+diminuendo.print_recipe("pocushocus") # WRONG password!
+```
+
+<sample-output>
+
+Diminuendo maximus:
+Toadstool 1.5 grams
+Magic sand 3.0 grams
+Frogspawn 4.0 grams
+Traceback (most recent call last):
+  File "secret_magic_potion.py", line 98, in <module>
+    raise ValueError("Wrong password!")
+ValueError: Wrong password!
+
+&lt;/sample-output&gt;
+
+&lt;/programming-exercise&gt;
+</module></sample-output></programming-exercise>

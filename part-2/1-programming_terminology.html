@@ -1,0 +1,492 @@
+<text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will be familiar with some essential terminology in programming
+- You will know the difference between a statement and an expression
+- You will be able to find out the data type of an evaluated expression
+- You will have learnt to use debugging methods to find mistakes in your code
+
+</text-box>
+
+<p>In the first part of this course we didn’t pay much attention to terminology, so let’s have a look at some central concepts in programming.</p>
+
+<h2 id="statement">Statement</h2>
+
+<p>A <em>statement</em> is a part of the program which executes something. It often, but not always, refers to a single command.</p>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">print("Hi!")</code> is a statement which prints out a line of text. Likewise, <code class="language-plaintext highlighter-rouge">number = 2</code> is a statement which assigns a value to a variable.</p>
+
+<p>A statement can also be more complicated. It can, for instance, contain other statements. The following statement spans three lines:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">"Anna"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hi!"</span><span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>In the above case there are two statements (a print statement and an assignment statement) within a conditional statement.</p>
+
+<h2 id="block">Block</h2>
+
+<p>A <em>block</em> is a group of consecutive statements that are at the same level in the structure of the program. For example, the block of a conditional statement contains those statements which are executed only if the condition is true.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">17</span><span class="p">:</span>
+    <span class="c1"># beginning of the conditional block
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"You are of age!"</span><span class="p">)</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">age</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"You are now one year older..."</span><span class="p">)</span>
+    <span class="c1"># end of the conditional block
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"This here belongs to another block"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In Python blocks are expressed by indenting all code in the block by the same amount of whitespace.</p>
+
+<p>NB: the main block of a Python program must always be at the leftmost edge of the file, without indentation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># this program will not work because it is not written at the leftmost egde of the file
+</span>  <span class="k">print</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"this program is not very good..."</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="expression">Expression</h2>
+
+<p>An <em>expression</em> is a bit of code that results in a determined data type. When the program is executed, the expression is evaluated so that it has a value that can then be used in the program.</p>
+
+<p>Here are a few examples of expressions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Value</th>
+      <th>Type</th>
+      <th>Python data type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2 + 4 + 3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">9</code></td>
+      <td>integer</td>
+      <td><code class="language-plaintext highlighter-rouge">int</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"abc" + "de"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">"abcde"</code></td>
+      <td>string</td>
+      <td><code class="language-plaintext highlighter-rouge">str</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">11 / 2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">5.5</code></td>
+      <td>floating point number</td>
+      <td><code class="language-plaintext highlighter-rouge">float</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2 * 5 &gt; 9</code></td>
+      <td><code class="language-plaintext highlighter-rouge">True</code></td>
+      <td>Boolean value</td>
+      <td><code class="language-plaintext highlighter-rouge">bool</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because all expressions have a type, they can be assigned to variables:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the variable x is assigned the value of the expression 1 + 2
+</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>Simple expressions can be assembled together to form more complicated expressions, for example with arithmetic operations:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the variable y is assigned the value of the expression '3 times x plus x squared'
+</span><span class="n">y</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<h2 id="function">Function</h2>
+
+<p>A <em>function</em> executes some functionality. Functions can also take one or more <em>arguments</em>, which are data that can be fed to and processed by the function. Arguments are sometimes also referred to as <em>parameters</em>. There is a technical distinction between an argument and a parameter, but the words are often used interchangeably. For now it should suffice to remember that both terms refer to the idea of some data passed to the function.</p>
+
+<p>A function is executed when it is <em>called</em>. That is, when the function (and its arguments, if any) is mentioned in the code. The following statement calls the <code class="language-plaintext highlighter-rouge">print</code> function with the argument <code class="language-plaintext highlighter-rouge">"this is an argument"</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"this is an argument"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Another function you’ve already used often is the <code class="language-plaintext highlighter-rouge">input</code> function, which asks the user for input. The argument of this function is the message that is shown to the user:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in your name: "</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In this case the function also <em>returns</em> a value. After the function has been executed, the section of code where it was called is replaced by the value it returns; it is another expression that has now been evaluated. The function <code class="language-plaintext highlighter-rouge">input</code> returns a string value containing whatever the user typed in at the prompt. The value a function returns is often stored in a variable so that it can be used in the program later on.</p>
+
+<h2 id="data-type">Data type</h2>
+
+<p><em>Data type</em> refers to the characteristics of any value present in the program. In the following bit of code the data type of the variable <code class="language-plaintext highlighter-rouge">name</code> is string or <code class="language-plaintext highlighter-rouge">str</code>, and the data type of the variable <code class="language-plaintext highlighter-rouge">result</code> is integer or <code class="language-plaintext highlighter-rouge">int</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="s">"Anna"</span>
+<span class="n">result</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div></div>
+
+<p>You can use the function <code class="language-plaintext highlighter-rouge">type</code> to find out the data type of any expression. An example of its use:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="s">"Anna"</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</code></pre></div></div>
+
+<sample-output>
+
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;
+
+</sample-output>
+
+<h2 id="syntax">Syntax</h2>
+
+<p>Similarly to natural languages, the <em>syntax</em> of a programming language determines how the code of a program should be written. Each programming language has its own specific syntax.</p>
+
+<p>The syntax of Python specifies, among other things, that the first line of an <code class="language-plaintext highlighter-rouge">if</code> statement should end in a colon character, and the block of the statement should be indented:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">"Anna"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hi!"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>If the syntactic rules of the programming language are not followed, there will be an error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">"Anna"</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hi!"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+<pre>
+  File "test.py", line 1
+    if name == "Anna"
+                    ^
+SyntaxError: invalid syntax
+</pre>
+
+
+</sample-output>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>If the syntax of the program is correct but the program still doesn’t function as intended, there is a <em>bug</em> in the program.</p>
+
+<p>Bugs manifest in different ways. Some bugs cause an error during execution. For example, the following program</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s"> divided by </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s"> is </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>causes this error:</p>
+
+<sample-output>
+
+<pre>
+ZeroDivisionError: integer division or modulo by zero on line 3
+</pre>
+
+</sample-output>
+
+<p>The problem here is mathematical in nature: division by zero is not allowed, and this halts the execution of the program.</p>
+
+<p>Errors during execution are usually rather easy to fix, because the error message states the line of code causing the error. Of course the actual reason for the bug might be somewhere quite different than the line of code causing the error.</p>
+
+<p>Sometimes a bug in the program is revealed because the result the code produces is wrong. Discovering and locating this type of bug can be challenging. In the programming exercises on this course the tests are usually intended to reveal bugs of this type. Before a bug can be fixed, its cause must first be located.</p>
+
+<p>Programming jargon refers to discovering the causes of bugs as <em>debugging</em>. It is an extremely important skill in any programmer’s toolbox. Professional programmers often spend more time debugging than writing fresh code.</p>
+
+<p>A simple yet effective way of debugging a program is adding debugging print statements to your code. Verifying the results of your code with <code class="language-plaintext highlighter-rouge">print</code> commands gives a quick confirmation the code does what you want it to do.</p>
+
+<p>The following is an attempt to solve one of the exercises from the <a href="/part-1/5-conditional-statements">previous section</a>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hourly_wage</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">"Hourly wage: "</span><span class="p">))</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">"Hours worked: "</span><span class="p">))</span>
+<span class="n">day</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Day of the week: "</span><span class="p">)</span>
+
+<span class="n">daily_wages</span> <span class="o">=</span> <span class="n">hourly_wage</span> <span class="o">*</span> <span class="n">hours</span>
+<span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"sunday"</span><span class="p">:</span>
+    <span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Daily wages: </span><span class="si">{</span><span class="n">daily_wages</span><span class="si">}</span><span class="s"> euros"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The program doesn’t work quite right. Executing the tests prints out the following:</p>
+
+<sample-output>
+
+<pre>
+FAIL: PythonEditorTest: test_sunday_1
+
+With input 20.0,6,Sunday correct wage 240.0 is not found in output Daily wages: 120.0 euros
+</pre>
+
+</sample-output>
+
+<p>When debugging the exercises on this course, the first step is often checking how the program behaves with the input specified in the test that failed. Indeed the result isn’t what was expected:</p>
+
+<sample-output>
+
+Daily wages: 120.0 euros
+
+</sample-output>
+
+<p>Debugging usually means running the program multiple times. It can come in handy to temporarily “hard-code” the problematic input, instead of asking the user for input each time. In this case hard-coding could look like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># hourly_wage = float(input("Hourly wage: "))
+# hours = int(input("Hours worked: "))
+# day = input("Day of the week: ")
+</span><span class="n">hourly_wage</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">day</span> <span class="o">=</span> <span class="s">"Sunday"</span>
+
+<span class="n">daily_wages</span> <span class="o">=</span> <span class="n">hourly_wage</span> <span class="o">*</span> <span class="n">hours</span>
+<span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"sunday"</span><span class="p">:</span>
+    <span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Daily wages: </span><span class="si">{</span><span class="n">daily_wages</span><span class="si">}</span><span class="s"> euros"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The next step could be adding <em>debugging print statements</em>. The problematic part of the code is in the section dealing with Sundays, so let’s add <code class="language-plaintext highlighter-rouge">print</code> commands before and after the line that should double the daily wages on Sundays:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...
+</span>
+<span class="n">daily_wages</span> <span class="o">=</span> <span class="n">hourly_wage</span> <span class="o">*</span> <span class="n">hours</span>
+<span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"sunday"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages before:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+    <span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages after doubling:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Daily wages: </span><span class="si">{</span><span class="n">daily_wages</span><span class="si">}</span><span class="s"> euros"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Running the code now reveals nothing - the debugging print statements aren’t printed at all. It seems that the contents of the <code class="language-plaintext highlighter-rouge">if</code> block are never executed, so there must be a problem with the conditional statement. Let’s try printing out the value of the Boolean expression:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...
+</span>
+<span class="n">daily_wages</span> <span class="o">=</span> <span class="n">hourly_wage</span> <span class="o">*</span> <span class="n">hours</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"condition:"</span><span class="p">,</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"sunday"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"sunday"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages before:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+    <span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages after doubling:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Daily wages: </span><span class="si">{</span><span class="n">daily_wages</span><span class="si">}</span><span class="s"> euros"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Indeed, the value is <code class="language-plaintext highlighter-rouge">False</code>, so the contents of the if block are never executed:</p>
+
+<sample-output>
+
+condition:  False
+Daily wages: 120.0 euros
+
+</sample-output>
+
+<p>The issue must then lie within the condition of the <code class="language-plaintext highlighter-rouge">if</code> statement. As in so many situations in programming, the case of letters matters also in comparisons. Notice how the “sunday” in the Boolean expression has not been capitalized, but in the input it was. Let’s fix this (in both the <code class="language-plaintext highlighter-rouge">print</code> command and the <code class="language-plaintext highlighter-rouge">if</code> statement):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...
+</span>
+<span class="n">daily_wages</span> <span class="o">=</span> <span class="n">hourly_wage</span> <span class="o">*</span> <span class="n">hours</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"condition:"</span><span class="p">,</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"Sunday"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="s">"Sunday"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages before:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+    <span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"wages after doubling:"</span><span class="p">,</span> <span class="n">daily_wages</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Daily wages: </span><span class="si">{</span><span class="n">daily_wages</span><span class="si">}</span><span class="s"> euros"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Running this prints out the following:</p>
+
+<sample-output>
+
+condition: True
+wages before: 120
+wages after doubling: 120
+Daily wages: 120.0 euros
+
+</sample-output>
+
+<p>It seems the value stored in <code class="language-plaintext highlighter-rouge">daily_wages</code> is correct at first: <code class="language-plaintext highlighter-rouge">hourly_wage = 20.0</code> and <code class="language-plaintext highlighter-rouge">hours = 6</code>, and 20.0 * 6 = 120.0. The command which is supposed to double the figure doesn’t do so, however, so there must be a problem with the command. And indeed the command</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">daily_wages</span> <span class="o">*</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>does double the value, but it doesn’t store the new value anywhere. Let’s change it so it also stores the new value:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">daily_wages</span> <span class="o">*=</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>Running the program again reveals that the printout at the end is now also correct:</p>
+
+<sample-output>
+
+condition: True
+wages before: 120
+wages after doubling: 240
+Daily wages: 240.0 euros
+
+</sample-output>
+
+<p>When the program has been fixed, remember to remove all debugging print statements and other code added for debugging purposes.</p>
+
+<p>This example was quite simple, and in such a short program one could probably figure out the bugs just by reading the code carefully. However, using debugging print statements is often a quick way to get a feeling for where the problem might lie. Print statements can be used to figure out which parts of the program seem to work correctly, so bug tracking efforts can be concentrated on the sections of code which are the most likely culprits.</p>
+
+<p>Debugging print statements are only one tool for debugging programs. We will come back to this subject later on during this course. You should now get into the habit of using debugging print statements to look for mistakes in your code. Programming professionals cannot get by without using them, so it is a very useful tool for beginners as well.</p>
+
+<in-browser-programming-exercise name="Fix the syntax" tmcname="part02-01_fix_syntax" height="400px">
+
+The following program contains several _syntactic errors_. Please fix the program so that the syntax is in order and the program works as specified by the examples below.
+
+```python
+  number = input("Please type in a number: ")
+  if number&gt;100
+    print("The number was greater than one hundred")
+    number - 100
+    print("Now its value has decreased by one hundred)
+     print("Its value is now"+ number)
+ print(number + " must be my lucky number!")
+ print("Have a nice day!)
+```
+
+<sample-output>
+
+Please type in a number: **13**
+13 must be my lucky number!
+Have a nice day!
+
+</sample-output>
+
+<sample-output>
+
+Please type in a number: **101**
+The number was greater than one hundred
+Now its value has decreased by one hundred
+Its value is now 1
+1 must be my lucky number!
+Have a nice day!
+
+</sample-output>
+
+</in-browser-programming-exercise>
+
+<in-browser-programming-exercise name="Number of characters" tmcname="part02-02_number_of_characters">
+
+The function `len` can be used to find out the length of a string, among other things. The function returns the number of characters in a string.
+
+Some examples of how this works:
+
+```python
+word = "abcd"
+print(len(word))
+
+print(len("hi there"))
+
+word2 = "howdydoody"
+length = len(word2)
+print(length)
+
+empty_string = ""
+length = len(empty_string)
+print(length)
+```
+
+<sample-output>
+
+4
+8
+10
+0
+
+</sample-output>
+
+Please write a program which asks the user for a word and then prints out the number of characters, if there was more than one typed in.
+
+Examples of expected behaviour:
+
+<sample-output>
+
+Please type in a word: **hey**
+There are 3 letters in the word hey
+Thank you!
+
+</sample-output>
+
+<sample-output>
+
+Please type in a word: **banana**
+There are 6 letters in the word banana
+Thank you!
+
+</sample-output>
+
+<sample-output>
+
+Please type in a word: **b**
+Thank you!
+
+</sample-output>
+
+</in-browser-programming-exercise>
+
+<in-browser-programming-exercise name="Typecasting" tmcname="part02-03_typecasting">
+
+When programming in Python, often we need to change the data type of a value. For example, a floating point number can be converted into an integer with the function `int`:
+
+```python
+
+temperature = float(input("Please type in a temperature: "))
+
+print("The temperature is", temperature)
+
+print("...and rounded down it is", int(temperature))
+
+```
+
+<sample-output>
+
+Please type in a temperature: **5.15**
+The temperature is 5.15
+...and rounded down it is 5
+
+</sample-output>
+
+Notice the function always rounds down, and not according to the rounding rules in mathematics. This is an example of a _floor function_.
+
+<sample-output>
+
+Please type in a temperature: **8.99**
+The temperature is 8.99
+...and rounded down it is 8
+
+</sample-output>
+
+Please write a program which asks the user for a floating point number and then prints out the integer part and the decimal part separately. Use the Python `int` function.
+
+You can assume the number given by the user is always greater than zero.
+
+An example of expected behaviour:
+
+<sample-output>
+
+Please type in a number: **1.34**
+Integer part: 1
+Decimal part: 0.34
+
+</sample-output>
+
+</in-browser-programming-exercise>
+
+<!--
+
+A quiz to review the contents of this section:
+
+<quiz id="eb4b41d3-b83b-5815-a1d5-ae9b377aa274"></quiz>
+
+
+-->

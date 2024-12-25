@@ -1,0 +1,127 @@
+<p>Our game is already quite functional, so it is time to add some finishing touches to it. We will add a counter for displaying the moves taken, an option to start a new game and close the game with keyboard input, and a notification for when the player succeeds in solving the game.</p>
+
+<h2 id="move-counter">Move counter</h2>
+
+<p>The move counter near the bottom edge of the game window displaye the number of moves taken by the player so far. This can be used to find the solution with the least number of moves.</p>
+
+<p>The counter requires some shanges to the code. First, let’s change the constructor so that there is adequate space for the counter, and that we have an appropriate font at our disposal in order to draw the text:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">game_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">font</span><span class="p">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s">"Arial"</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<p>The move counter is initialized to zero at the beginning of the game. Each move increases it by one:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">new_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">moves</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move_y</span><span class="p">,</span> <span class="n">move_x</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">moves</span> <span class="o">+=</span> <span class="mi">1</span>
+
+</code></pre></div></div>
+
+<p>Each time the window contents are updated, the number of moves taken shown on the screen should also be updated:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">draw_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="n">game_text</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_font</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">"Moves: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">moves</span><span class="p">),</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">blit</span><span class="p">(</span><span class="n">game_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<h2 id="new-game-and-exiting-the-game">New game and exiting the game</h2>
+
+<p>Next, let’s add keyboard commands for starting a new game with F2 and exiting the game with Esc. Both are rather easy to implement:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">check_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+                <span class="k">if</span> <span class="n">event</span><span class="p">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="p">.</span><span class="n">K_F2</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="p">.</span><span class="n">new_game</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">event</span><span class="p">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="p">.</span><span class="n">K_ESCAPE</span><span class="p">:</span>
+                    <span class="nb">exit</span><span class="p">()</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<p>We should also add information about this functionality for the player to see:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">draw_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="n">game_text</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_font</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">"F2 = new game"</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">blit</span><span class="p">(</span><span class="n">game_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+
+        <span class="n">game_text</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_font</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">"Esc = exit game"</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">blit</span><span class="p">(</span><span class="n">game_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<h2 id="solving-the-game">Solving the game</h2>
+
+<p>The player has solved the game when each box is in one of the target squares. The following method takes care of checking this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">game_solved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">width</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="nb">map</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<p>The method goes through all the squares in the game grid. If any of the squares is a 2 (an empty target square) or a 6 (a robot in a target square) the game is not yet solved, so the method returns <code class="language-plaintext highlighter-rouge">False</code>. If no such square is present in the grid, all target squares must be occupied by boxes, the game is solved, and the method returns <code class="language-plaintext highlighter-rouge">True</code>.</p>
+
+<p>If the player solves the game, we should display an appropriate message with the <code class="language-plaintext highlighter-rouge">draw_window</code> method:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">draw_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_solved</span><span class="p">():</span>
+            <span class="n">game_text</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_font</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="s">"Congratulations, you solved the game!"</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="n">game_text_x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">game_text</span><span class="p">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">game_text_y</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">game_text</span><span class="p">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">pygame</span><span class="p">.</span><span class="n">draw</span><span class="p">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">window</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">game_text_x</span><span class="p">,</span> <span class="n">game_text_y</span><span class="p">,</span> <span class="n">game_text</span><span class="p">.</span><span class="n">get_width</span><span class="p">(),</span> <span class="n">game_text</span><span class="p">.</span><span class="n">get_height</span><span class="p">()))</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">blit</span><span class="p">(</span><span class="n">game_text</span><span class="p">,</span> <span class="p">(</span><span class="n">game_text_x</span><span class="p">,</span> <span class="n">game_text_y</span><span class="p">))</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<p>For completeness’ sake, let’s also change the <code class="language-plaintext highlighter-rouge">move</code> method so that the player can no longer move when they have solved the game:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move_y</span><span class="p">,</span> <span class="n">move_x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">game_solved</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<p>The player can still see the game grid and the final state of the game, however.</p>
+
+<h2 id="a-hint-for-testing">A hint for testing</h2>
+
+<p>When developing games it often happens that you’d want to check what happens in some later situation in the game. For example, in this game the moment where the game is solved is one such situation.</p>
+
+<p>It can be difficult to test the correct functioning of a situation like that, as you’d normally ahve to solve the game to reach that point in the game. As programmers we can make some temporary alleviations in our games, to make it easier to test them. For example, we could add the following to make it temporarily easier to solve the game:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">game_solved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<p>Now the method always returns <code class="language-plaintext highlighter-rouge">True</code>, which means that the game is “solved” to begin with. This makes it easy to check that the noification at the end looks good and the player can no longer move on the grid after solving. When this functionality is thoroughly tested, we can revoke the changes.</p>
+
+<h2 id="your-game-on-github">Your game on GitHub?</h2>
+
+<p>The game is now finished. If you want an easy way to play around with the code and images, you can retrieve the source code from GitHub:</p>
+
+<ul>
+  <li><a href="https://github.com/moocfi/sokoban">https://github.com/moocfi/sokoban</a></li>
+</ul>
+
+<p>GitHub is a popular place for many kinds of programming projects. It can be used to store the source code and other materials of all your own programming projects as well, and your program will then be maintained through git version control, and it can be easily shared with others. You will become very familiar with git and GitHub if you continue on to other mooc.fi programming courses.</p>
+
+<h2 id="how-many-moves-are-required">How many moves are required?</h2>
+
+<p>The grid in this game is quite small, but the game is not all that easy. The first challenge is simply passing the game, but the next stage is trying to do so with as few moves as possible. How short is the shortest path to a solution?</p>
+
+<p>Looking for the shortest possible solution is not an easy task at all, but there are computational solutions to this as well. They are one of the subjects of the <em>Data Structures and Algorithms</em> course.</p>

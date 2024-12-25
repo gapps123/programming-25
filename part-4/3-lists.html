@@ -1,0 +1,661 @@
+<text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will know what lists are in Python
+- You will be able access a specified item within a list
+- You will know how to add items to a list, and how to remove them
+- You will be familiar with built-in list functions and methods
+
+</text-box>
+
+<p>Thus far in our programs we have stored data with variables, each bit of data usually having its own named variable. This obviously has some limitations, as it can get cumbersome to define separate variables for everything when there is a lot of data to handle.</p>
+
+<p>A Python <em>list</em> is a collection of values which is accessed via a single variable name. The contents of the list are written within square brackets. The values contained in the list are called <em>items</em>, or sometimes <em>elements</em>.</p>
+
+<p>The following command creates a new, empty list</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<p>whereas this command creates a list with five items in it:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="accessing-items-in-a-list">Accessing items in a list</h2>
+
+<p>The items in a list are indexed in exactly the same way as characters in a string. Indexing starts from zero, and the last index is the length of the list minus 1:</p>
+
+<p><img src="4_3_1.png" alt="Lists are indexed starting from 0" /></p>
+
+<p>A single list item can be accessed just like a single character in a string is accessed, with square brackets:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"The sum of the first two items:"</span><span class="p">,</span> <span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">my_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<sample-output>
+
+7
+2
+5
+The sum of the first two items: 9
+
+</sample-output>
+
+<p>The entire contents of the list can also be printed out:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[7, 2, 2, 5, 2]
+
+</sample-output>
+
+<p>Unlike strings, lists are mutable, which means their contents can change. You can assign a new value to an item within a list, just like you can assign a new value to a variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[7, 2, 2, 5, 2]
+[7, 3, 2, 5, 2]
+
+</sample-output>
+
+<p>The function <code class="language-plaintext highlighter-rouge">len</code> gives you the number of items in a list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">))</span>
+</code></pre></div></div>
+
+<sample-output>
+
+5
+
+</sample-output>
+
+<programming-exercise name="Change the value of an item" tmcname="part04-12_change_value_of_item">
+
+Please write a program which initialises a list with the values `[1, 2, 3, 4, 5]`. Then the program should ask the user for an index and a new value, replace the value at the given index, and print the list again. This should be looped over until the user gives -1 for the index. You can assume all given index values will fall within your list.
+
+An example execution of the program:
+
+<sample-output>
+
+Index: **0**
+New value: **10**
+[10, 2, 3, 4, 5]
+Index: **2**
+New value: **250**
+[10, 2, 250, 4, 5]
+Index: **4**
+New value: **-45**
+[10, 2, 250, 4, -45]
+Index: **-1**
+
+</sample-output>
+
+**NB:** this exercise doesn't ask you to write any functions, so you should __not__ place any code within an `if __name__ == "__main__"` block.
+
+</programming-exercise>
+
+<h2 id="adding-items-to-a-list">Adding items to a list</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">append</code> method adds items to the end of a list. It works like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[5, 10, 3]
+
+</sample-output>
+
+<p>The following example makes use of two separate lists:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">shoe_sizes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">shoe_sizes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="n">shoe_sizes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">shoe_sizes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">shoe_sizes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Numbers:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Shoe sizes:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">shoe_sizes</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The item is appended to the list on which the method is called:</p>
+
+<sample-output>
+
+Numbers:
+[5, 10, 3]
+Shoe sizes:
+[37, 44, 40, 28]
+
+</sample-output>
+
+<programming-exercise name="Add items to a list" tmcname="part04-13_add_items_to_list">
+
+Please write a program which first asks the user for the number of items to be added. Then the program should ask for the given number of values, one by one, and add them to a list in the order they were typed in. Finally, the list is printed out.
+
+An example of expected behaviour:
+
+<sample-output>
+
+How many items: **3**
+Item 1: **10**
+Item 2: **250**
+Item 3: **34**
+[10, 250, 34]
+
+</sample-output>
+
+**NB:** this exercise doesn't ask you to write any functions, so you should __not__ place any code within an `if __name__ == "__main__"` block.
+
+</programming-exercise>
+
+<h2 id="adding-to-a-specific-location">Adding to a specific location</h2>
+
+<p>If you want to specify a location in the list where an item should be added, you can use the <code class="language-plaintext highlighter-rouge">insert</code> method. The method adds an item at the specified index. All the items already in the list with an index equal to or higher than the specified index are moved one index further, “to the right”:</p>
+
+<p><img src="4_3_2.png" alt="Inserting an item to a list" /></p>
+
+<p>So, for instance this program</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>prints out this:</p>
+
+<sample-output>
+
+[10, 1, 2, 3, 4, 5, 6]
+[10, 1, 20, 2, 3, 4, 5, 6]
+
+</sample-output>
+
+<h2 id="removing-items-from-a-list">Removing items from a list</h2>
+
+<p>There are two different approaches to removing an item from a list:</p>
+
+<ul>
+  <li>If the <em>index</em> of the item is known, you can use the method <code class="language-plaintext highlighter-rouge">pop</code>.</li>
+  <li>If the <em>contents</em> of the item are known, you can use the method <code class="language-plaintext highlighter-rouge">remove</code>.</li>
+</ul>
+
+<p>So, the method <code class="language-plaintext highlighter-rouge">pop</code> takes the index of the item you want to remove as its argument. The following program removes items at indexes 2 and 3 from the list. Notice how the indexes of the remaining items change when one is removed.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">my_list</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[1, 2, 4, 5, 6]
+[1, 2, 4, 6]
+
+</sample-output>
+
+<p>It’s useful to remember that the method <code class="language-plaintext highlighter-rouge">pop</code> also <em>returns</em> the removed item:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="n">number</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+7
+[4, 2, 2, 5]
+
+</sample-output>
+
+<p>The method <code class="language-plaintext highlighter-rouge">remove</code>, on the other hand, takes the value of the item to be removed as its argument. For example, this program</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">my_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>prints out this:</p>
+
+<sample-output>
+
+[1, 3, 4, 5, 6]
+[1, 3, 4, 6]
+
+</sample-output>
+
+<p>The method removes the <em>first</em> occurrence of the value in the list, much like the string function <code class="language-plaintext highlighter-rouge">find</code> returns the first occurrence of a substring:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="n">my_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[2, 1, 2]
+[2, 2]
+
+</sample-output>
+
+<programming-exercise name="Addition and removal" tmcname="part04-14_addition_and_removal">
+
+Please write a program which asks the user to choose between addition and removal. Depending on the choice, the program _adds an item to_ or _removes an item from_ the end of a list. The item that is added must always be one greater than the last item in the list. The first item to be added must be 1.
+
+The list is printed out in the beginning and after each operation. Have a look at the example execution below:
+
+<sample-output>
+
+The list is now []
+a(d)d, (r)emove or e(x)it: **d**
+The list is now [1]
+a(d)d, (r)emove or e(x)it: **d**
+The list is now [1, 2]
+a(d)d, (r)emove or e(x)it: **d**
+The list is now [1, 2, 3]
+a(d)d, (r)emove or e(x)it: **r**
+The list is now [1, 2]
+a(d)d, (r)emove or e(x)it: **d**
+The list is now [1, 2, 3]
+a(d)d, (r)emove or e(x)it: **x**
+Bye!
+
+</sample-output>
+
+You may assume that, if the list is empty, there will not be an attempt to remove items.
+
+**NB:** this exercise doesn't ask you to write any functions, so you should __not__ place any code within an `if __name__ == "__main__"` block.
+
+</programming-exercise>
+
+<p>If the specified item is not in the list, the <code class="language-plaintext highlighter-rouge">remove</code> function causes an error. Just like with strings, we can check for the presence of an item with the <code class="language-plaintext highlighter-rouge">in</code> operator:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The list contains item 1"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="mi">2</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The list contains item 2"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+The list contains item 1
+
+</sample-output>
+
+<programming-exercise name="Same word twice" tmcname="part04-15_same_word_twice">
+
+Please write a program which asks the user for words. If the user types in a word for the second time, the program should print out the number of different words typed in, and exit.
+
+<sample-output>
+
+Word: **once**
+Word: **upon**
+Word: **a**
+Word: **time**
+Word: **upon**
+You typed in 4 different words
+
+</sample-output>
+
+**NB:** this exercise doesn't ask you to write any functions, so you should __not__ place any code within an `if __name__ == "__main__"` block.
+
+</programming-exercise>
+
+<h2 id="sorting-lists">Sorting lists</h2>
+
+<p>The items in a list can be <em>sorted</em> from smallest to greatest with the method <code class="language-plaintext highlighter-rouge">sort</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[1, 2, 2, 4, 5]
+
+</sample-output>
+
+<p>Notice how the method modifies the list itself. Sometimes we don’t want to change the original list, so we use the function <code class="language-plaintext highlighter-rouge">sorted</code> instead. It <em>returns</em> a sorted list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">my_list</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[1, 2, 2, 4, 5]
+
+</sample-output>
+
+<p>Remember the difference between the two: <code class="language-plaintext highlighter-rouge">sort</code> changes the order of the original list in place, whereas <code class="language-plaintext highlighter-rouge">sorted</code> creates a new, ordered copy of the list. With <code class="language-plaintext highlighter-rouge">sorted</code> we can preserve the original order of the list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">original</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">in_order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">in_order</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+[2, 5, 1, 2, 4]
+[1, 2, 2, 4, 5]
+
+</sample-output>
+
+<programming-exercise name="List twice" tmcname="part04-16_list_twice">
+
+Please write a program which asks the user to type in values and adds them to a list. After each addition, the list is printed out in two different ways:
+- in the order the items were added
+- ordered from smallest to greatest
+
+The program exits when the user types in 0.
+
+An example of expected behaviour:
+
+<sample-output>
+
+New item: **3**
+The list now: [3]
+The list in order: [3]
+New item: **1**
+The list now: [3, 1]
+The list in order: [1, 3]
+New item: **9**
+The list now: [3, 1, 9]
+The list in order: [1, 3, 9]
+New item: **5**
+The list now: [3, 1, 9, 5]
+The list in order: [1, 3, 5, 9]
+New item: **0**
+Bye!
+
+</sample-output>
+
+**NB:** this exercise doesn't ask you to write any functions, so you should __not__ place any code within an `if __name__ == "__main__"` block.
+
+</programming-exercise>
+
+<h2 id="maximum-minimum-and-sum">Maximum, minimum and sum</h2>
+
+<p>The functions <code class="language-plaintext highlighter-rouge">max</code> and <code class="language-plaintext highlighter-rouge">min</code>, short for maximum and minimum, return the greatest and smallest item in a list, respectively. The function <code class="language-plaintext highlighter-rouge">sum</code> returns the sum of all items in a list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="n">greatest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">smallest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">list_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Smallest:"</span><span class="p">,</span> <span class="n">smallest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Greatest:"</span><span class="p">,</span> <span class="n">greatest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Sum:"</span><span class="p">,</span> <span class="n">list_sum</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Smallest: 1
+Greatest: 5
+Sum: 15
+
+</sample-output>
+
+<h2 id="methods-vs-functions">Methods vs functions</h2>
+
+<p>There are two different ways of processing lists in Python, which can get confusing. For the most part you will use list <em>methods</em>, such as <code class="language-plaintext highlighter-rouge">append</code> and <code class="language-plaintext highlighter-rouge">sort</code>. They are used with the dot <code class="language-plaintext highlighter-rouge">.</code> operator on the list variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># method calls
+</span><span class="n">my_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">my_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># another method call
+</span><span class="n">my_list</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Some <em>functions</em> are happy to take a list as an argument. Above we saw the functions <code class="language-plaintext highlighter-rouge">max</code>,  <code class="language-plaintext highlighter-rouge">min</code>, <code class="language-plaintext highlighter-rouge">len</code> and <code class="language-plaintext highlighter-rouge">sorted</code> do just that:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># function calls take the list as an argument
+</span><span class="n">greatest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">smallest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Smallest:"</span><span class="p">,</span> <span class="n">smallest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Greatest:"</span><span class="p">,</span> <span class="n">greatest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Length of the list:"</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+
+<span class="c1"># another function call 
+# the list itself is an argument, the function returns a sorted copy
+</span><span class="n">in_order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">in_order</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+Smallest: 1
+Greatest: 7
+Length of the list: 4
+[1, 2, 3, 7]
+
+</sample-output>
+
+<h2 id="a-list-as-an-argument-or-a-return-value">A list as an argument or a return value</h2>
+
+<p>Just like the built-in functions above, our own functions can also take a list as an argument and produce a list as a return value. The following function works out the central value in an ordered list, also called the <em>median</em> value:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="n">my_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="n">ordered</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">my_list</span><span class="p">))</span>
+    <span class="n">list_centre</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordered</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">ordered</span><span class="p">[</span><span class="n">list_centre</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>The function creates an ordered version of the list given as an argument and returns the item in the very middle. Notice the integer division operator <code class="language-plaintext highlighter-rouge">//</code> used here. The index of a list should always be an integer.</p>
+
+<p>The function works like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shoe_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The median of the shoe sizes is"</span><span class="p">,</span> <span class="n">median</span><span class="p">(</span><span class="n">shoe_sizes</span><span class="p">))</span>
+
+<span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The median of the ages is"</span><span class="p">,</span> <span class="n">median</span><span class="p">(</span><span class="n">ages</span><span class="p">))</span>
+</code></pre></div></div>
+
+<sample-output>
+
+The median of the shoe sizes is 40
+The median of the ages is 22
+
+</sample-output>
+
+<p>A function can also return a list. The following function asks the user to type in integers and returns the input as a list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">input_numbers</span><span class="p">():</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in an integer, leave empty to exit: "</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">user_input</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">numbers</span>
+</code></pre></div></div>
+
+<p>The function makes use of a helper variable <code class="language-plaintext highlighter-rouge">numbers</code>, which is a list. All the numbers typed in by the user are added to the list. When the loop is exited from, the function returns the list with the statement <code class="language-plaintext highlighter-rouge">return numbers</code>.</p>
+
+<p>Calling the function like this</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="n">input_numbers</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"The greatest number is"</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The median of the numbers is"</span><span class="p">,</span> <span class="n">median</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>could print this, for example:</p>
+
+<sample-output>
+
+Please type in an integer, leave empty to exit: **5**
+Please type in an integer, leave empty to exit: **-22**
+Please type in an integer, leave empty to exit: **4**
+Please type in an integer, leave empty to exit: **35**
+Please type in an integer, leave empty to exit: **1**
+Please type in an integer, leave empty to exit:
+The greatest number is 35
+The median of the numbers is 4
+
+</sample-output>
+
+<p>This small example demonstrates one of the most important uses of functions: they can help you divide your code into smaller, easily understandable and logical wholes.</p>
+
+<p>Of course the same functionality could be achieved without writing any of our own functions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Please type in an integer, leave empty to exit: "</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">user_input</span><span class="p">))</span>
+
+<span class="n">ordered</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+<span class="n">list_centre</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordered</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">ordered</span><span class="p">[</span><span class="n">list_centre</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"The greatest number is"</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The median of the numbers is"</span><span class="p">,</span> <span class="n">median</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In this version, following the programming logic is more difficult, as it is no longer clear which commands are a part of which functionality. The code fulfils the same purposes - reading in input, calculating the median value, and so on - but the structure is less clear.</p>
+
+<p>Organising your code into separate functions will improve you program’s readability, but also make it easier to handle logical wholes. This in turn helps you verify that the program works as intended, as each function can be tested separately.</p>
+
+<p>Another important use for functions is making code <em>reusable</em>. If you need to achieve some functionality multiple times in your program, it is a good idea to create your own function and name it appropriately:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Shoe sizes:"</span><span class="p">)</span>
+<span class="n">shoe_sizes</span> <span class="o">=</span> <span class="n">input_numbers</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Weights:"</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">input_numbers</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Heights:"</span><span class="p">)</span>
+<span class="n">heights</span> <span class="o">=</span> <span class="n">input_numbers</span><span class="p">()</span>
+</code></pre></div></div>
+
+<programming-exercise name="The length of a list" tmcname="part04-17_length_of_list">
+
+Please write a function named `length` which takes a list as its argument and returns the length of the list.
+
+```python
+my_list = [1, 2, 3, 4, 5]
+result = length(my_list)
+print("The length is", result)
+
+# the list given as an argument doesn't need to be stored in any variable
+result = length([1, 1, 1, 1])
+print("The length is", result)
+```
+
+<sample-output>
+
+The length is 5
+The length is 4
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="Arithmetic mean" tmcname="part04-18_mean">
+
+Please write a function named `mean`, which takes a list of integers as an argument. The function returns the arithmetic mean of the values in the list.
+
+```python
+my_list = [1, 2, 3, 4, 5]
+result = mean(my_list))
+print("mean value is", result)
+```
+
+<sample-output>
+
+mean value is 3.0
+
+</sample-output>
+
+</programming-exercise>
+
+<programming-exercise name="The range of a list" tmcname="part04-19_range_of_list">
+
+Please write a function named  `range_of_list`, which takes a list of integers as an argument. The function returns the difference between the smallest and the largest value in the list.
+
+
+```python
+my_list = [1, 2, 3, 4, 5]
+result = range_of_list(my_list))
+print("The range of the list is", result)
+```
+
+<sample-output>
+
+The range of the list is 4
+
+</sample-output>
+
+</programming-exercise>
+
+<p>There are many more ways to use lists in Python. The Python <a href="https://docs.python.org/3/tutorial/datastructures.html">documentation</a> is a good place to start if you want to know more.</p>
+
+<!---
+A quiz to review the contents of this section:
+
+<quiz id="4849cd69-1938-5f4f-8805-8445f0f5c015"></quiz>
+-->

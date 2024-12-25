@@ -1,0 +1,320 @@
+<text-box variant="learningObjectives" name="Learning objectives">
+
+After this section
+
+- You will be familiar with the terms class variable and class method
+- You will know how static traits are different from the traits of instances
+- You will be able to add static traits to your own classes
+
+</text-box>
+
+<p>The <em>traits</em> of objects are a central concept in object oriented programming. The term encompasses the methods and variables defined in the class definition. Again, not all Python programmers use the term “traits”, some preferring <em>attributes</em>, <em>features</em> or <em>members</em>. Traits is quite accepted in the wider object oriented programming world, so that is the term we use here.</p>
+
+<p>Thus far we have dealt mostly with <em>traits of objects</em>. These include the methods and attributes accessible in any instance of a class. In fact, classes <em>themselves</em> can also have traits, which are sometimes called <em>static traits</em>, or more specifically <em>class variables</em> and <em>class methods</em>.</p>
+
+<h2 id="class-variables">Class variables</h2>
+
+<p>Each instance of a class has its own specific values for each attribute defined in the class, as we’ve seen in the examples in the previous sections. But what if we wanted to have some data that is shared by the different instances? Enter <em>class variables</em>, also known as static variables. A class variable is a variable which is accessed through the class itself, not through the instances created based on the class. At any given time during the execution of the program a class variable has one single value, no matter how many instances of the class are created.</p>
+
+<p>A class variable is declared without the <code class="language-plaintext highlighter-rouge">self</code> prefix, and usually outside any method definition as it should be accessible from anywhere within the class, or even from outside the class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SavingsAccount</span><span class="p">:</span>
+    <span class="n">general_rate</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">interest_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__account_number</span> <span class="o">=</span> <span class="n">account_number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__interest_rate</span> <span class="o">=</span> <span class="n">interest_rate</span>
+
+    <span class="k">def</span> <span class="nf">add_interest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The total interest rate equals 
+</span>        <span class="c1"># the general rate + the interest rate of the account
+</span>        <span class="n">total_interest</span> <span class="o">=</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">__interest_rate</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">*</span> <span class="n">total_interest</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span>
+</code></pre></div></div>
+
+<p>As the variable <code class="language-plaintext highlighter-rouge">general_rate</code> is defined within the class but outside any method definitions, and it does not use the <code class="language-plaintext highlighter-rouge">self</code> prefix, it is a class variable.</p>
+
+<p>A class variable is accessed through the name of the class, for example like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The general rate exists independently of any object instances
+</span><span class="k">print</span><span class="p">(</span><span class="s">"The general interest rate is"</span><span class="p">,</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span><span class="p">)</span>
+
+<span class="n">account</span> <span class="o">=</span> <span class="n">SavingsAccount</span><span class="p">(</span><span class="s">"12345"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="c1"># Add the total interest accrued to the balance on the account
+</span><span class="n">account</span><span class="p">.</span><span class="n">add_interest</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">account</span><span class="p">.</span><span class="n">balance</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+The general interest rate is 0.03
+1080.0
+
+</sample-output>
+
+<p>So, the class variables are accessed through the name of the class, for instance with <code class="language-plaintext highlighter-rouge">SavingsAccount.general_rate</code>, while instance variables are accessed through the name of the object variable, such as <code class="language-plaintext highlighter-rouge">account.balance</code>. An instance variable naturally only exists when an instance of the class has been created, but a class variable is available everywhere and at any point in time where the class itself is available.</p>
+
+<p>Class variables are useful when there is need for values which are shared by all instances of the class. In the example above we assumed the total interest rate of all savings accounts is formed from two components: the general rate of interest is shared by all accounts, but each account also has it’s own interest rate in an instance variable. The general rate may also change, but the change will then affect all instances of the class equally.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SavingsAccount</span><span class="p">:</span>
+    <span class="n">general_rate</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">interest_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__account_number</span> <span class="o">=</span> <span class="n">account_number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__interest_rate</span> <span class="o">=</span> <span class="n">interest_rate</span>
+
+    <span class="k">def</span> <span class="nf">add_interest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The total interest rate equals 
+</span>        <span class="c1"># the general rate + the interest rate of the account
+</span>        <span class="n">total_interest</span> <span class="o">=</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">__interest_rate</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span> <span class="o">*</span> <span class="n">total_interest</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__balance</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">total_interest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__interest_rate</span> <span class="o">+</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">account1</span> <span class="o">=</span> <span class="n">SavingsAccount</span><span class="p">(</span><span class="s">"12345"</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">)</span>
+<span class="n">account2</span> <span class="o">=</span> <span class="n">SavingsAccount</span><span class="p">(</span><span class="s">"54321"</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"General interest rate:"</span><span class="p">,</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">account1</span><span class="p">.</span><span class="n">total_interest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">account2</span><span class="p">.</span><span class="n">total_interest</span><span class="p">)</span>
+
+<span class="c1"># The general rate of interest is now 10 percent
+</span><span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span> <span class="o">=</span> <span class="mf">0.10</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"General interest rate:"</span><span class="p">,</span> <span class="n">SavingsAccount</span><span class="p">.</span><span class="n">general_rate</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">account1</span><span class="p">.</span><span class="n">total_interest</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">account2</span><span class="p">.</span><span class="n">total_interest</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+General interest rate: 0.03
+0.06
+0.09
+General interest rate: 0.1
+0.13
+0.16
+
+</sample-output>
+
+<p>When the general rate of interest changes, the total interest rate for all instances of the class changes. As you can see above, it is possible to add a getter method with the <code class="language-plaintext highlighter-rouge">@property</code> decorator even though there isn’t an attribute of the same name in the class. This method returns the sum of the general rate of interest and the account specific interest rate.</p>
+
+<p>Let’s have a look at another example. The class <code class="language-plaintext highlighter-rouge">PhoneNumber</code> is used to define a single phone number, but it also contains some country codes in a dictionary. This dictionary is a class variable, and as such is shared by all the instances of the class, because the country code for phone numbers from a single country is always the same.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PhoneNumber</span><span class="p">:</span>
+    <span class="n">country_codes</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Finland"</span><span class="p">:</span> <span class="s">"+358"</span><span class="p">,</span> <span class="s">"Sweden"</span><span class="p">:</span> <span class="s">"+46"</span><span class="p">,</span> <span class="s">"United States"</span><span class="p">:</span> <span class="s">"+1"</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">country</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__phone_number</span> <span class="o">=</span> <span class="n">phone_number</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__country</span> <span class="o">=</span> <span class="n">country</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># When the country code prefix is added 
+</span>        <span class="c1"># the initial zero is removed from the phone number
+</span>        <span class="k">return</span> <span class="n">PhoneNumber</span><span class="p">.</span><span class="n">country_codes</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">__country</span><span class="p">]</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">__phone_number</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">paulas_no</span> <span class="o">=</span> <span class="n">PhoneNumber</span><span class="p">(</span><span class="s">"Paula Pythons"</span><span class="p">,</span> <span class="s">"050 1234 567"</span><span class="p">,</span> <span class="s">"Finland"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">paulas_no</span><span class="p">.</span><span class="n">phone_number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
++358 50 1234 567
+
+</sample-output>
+
+<p>Each PhoneNumber object contains the name of the owner, the number itself, and the country of the phone number. When the attribute containing the phone number is accessed with the getter method, the appropriate country code is retrieved from the class variable dictionary based on the country attribute, and the result is prefixed to the number.</p>
+
+<p>The example implementation above is not yet very functional otherwise. In the following example we’ve added getter and setters for all attributes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PhoneNumber</span><span class="p">:</span>
+    <span class="n">country_codes</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Finland"</span><span class="p">:</span> <span class="s">"+358"</span><span class="p">,</span> <span class="s">"Sweden"</span><span class="p">:</span> <span class="s">"+46"</span><span class="p">,</span> <span class="s">"United States"</span><span class="p">:</span> <span class="s">"+1"</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">country</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="c1"># This is a call to the phone_number.setter method
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">phone_number</span> <span class="o">=</span> <span class="n">phone_number</span>
+        <span class="c1"># This is a call to the country.setter method
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">country</span>
+
+    <span class="c1"># the getter method for phone_number combines the country code 
+</span>    <span class="c1"># and the attribute phone_number
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># the initial zero is removed as the country code is prefixed
+</span>        <span class="k">return</span> <span class="n">PhoneNumber</span><span class="p">.</span><span class="n">country_codes</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">__country</span><span class="p">]</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">__phone_number</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="o">@</span><span class="n">phone_number</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="c1"># Making sure the number contains only numbers and space characters
+</span>        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">number</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">character</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s">"1234567890 "</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"A phone number can only contain numbers and spaces"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__phone_number</span> <span class="o">=</span> <span class="n">number</span>
+
+    <span class="c1"># a getter for only the number itself without the country code
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">local_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__phone_number</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">country</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__country</span>
+
+    <span class="o">@</span><span class="n">country</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">country</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">country</span><span class="p">):</span>
+        <span class="c1"># Making sure the country is a key in the dictionary of country codes
+</span>        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PhoneNumber</span><span class="p">.</span><span class="n">country_codes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"This country is not on the list."</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__country</span> <span class="o">=</span> <span class="n">country</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__name</span>
+
+    <span class="o">@</span><span class="n">name</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">phone_number</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">__name</span><span class="si">}</span><span class="s">)"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">pn</span> <span class="o">=</span> <span class="n">PhoneNumber</span><span class="p">(</span><span class="s">"Peter Pythons"</span><span class="p">,</span> <span class="s">"040 111 1111"</span><span class="p">,</span> <span class="s">"Sweden"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pn</span><span class="p">.</span><span class="n">phone_number</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pn</span><span class="p">.</span><span class="n">local_number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
++46 40 111 1111 (Peter Pythons)
++46 40 111 1111
+040 111 1111
+
+</sample-output>
+
+<programming-exercise name="Postcodes" tmcname="part09-13_postcodes">
+
+The exercise template contains the class definition `City` which is a model for a single city.
+
+Please add a class variable named `postcodes` which refers to a dictionary. The keys of the dictionary are names of cities, and the values attached are the postcodes for those cities. Both are strings.
+
+The dictionary should contain (at least) the following postcodes:
+
+* Helsinki 00100
+* Turku 20100
+* Tampere 33100
+* Rovaniemi 96100
+* Oulu 90100
+
+You do not need to implement any other functionality.
+
+</programming-exercise>
+
+<h2 id="class-methods">Class methods</h2>
+
+<p>A class method, also called a static method, is a method which is not attached to any single instance of the class. A class method can be called without creating any instances of the class.</p>
+
+<p>Class methods are usually tools which have something to do with the purpose of the class, but which are detached in the sense that it should not be necessary to create instances of the class in order to be able to call them. Class methods are usually public, so that they can be called both from outside the class and from within the class, including from within instances of the class.</p>
+
+<p>A class method is defined with the <code class="language-plaintext highlighter-rouge">@classmethod</code> annotation. The first parameter is always <code class="language-plaintext highlighter-rouge">cls</code>. The variable name <code class="language-plaintext highlighter-rouge">cls</code> is similar to the <code class="language-plaintext highlighter-rouge">self</code> parameter. The difference is that <code class="language-plaintext highlighter-rouge">cls</code> points to the class while <code class="language-plaintext highlighter-rouge">self</code> point to an instance of the class. Neither parameter is included in the argument list when the function is called; Python fills in the appropriate value automatically.</p>
+
+<p>In the following example we have a class modelling vehicle registrations. The <code class="language-plaintext highlighter-rouge">Registration</code> class contains a static method for checking whether a license plate is valid. The method is a static class method because it is useful to be able to check if a license plate is valid even before a single Registration object is created:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Registration</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">make</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">license_plate</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__make</span> <span class="o">=</span> <span class="n">make</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__year</span> <span class="o">=</span> <span class="n">year</span>
+
+        <span class="c1"># Call the license_plate.setter method
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">license_plate</span> <span class="o">=</span> <span class="n">license_plate</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">license_plate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__license_plate</span>
+
+    <span class="o">@</span><span class="n">license_plate</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">license_plate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plate</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Registration</span><span class="p">.</span><span class="n">license_plate_valid</span><span class="p">(</span><span class="n">plate</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__license_plate</span> <span class="o">=</span> <span class="n">plate</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"The license plate is not valid"</span><span class="p">)</span>
+
+    <span class="c1"># A class method for validating the license plate
+</span>    <span class="o">@</span><span class="nb">classmethod</span>
+    <span class="k">def</span> <span class="nf">license_plate_valid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">plate</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">plate</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="s">"-"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plate</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="c1"># Check the beginning and end sections of the plate separately
+</span>        <span class="n">letters</span><span class="p">,</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">plate</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"-"</span><span class="p">)</span>
+
+        <span class="c1"># the beginning section can have only letters
+</span>        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">letters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">character</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s">"abcdefghijklmnopqrstuvwxyzåäö"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="c1"># the end section can have only numbers
+</span>        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">character</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s">"1234567890"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">registration</span> <span class="o">=</span> <span class="n">Registration</span><span class="p">(</span><span class="s">"Mary Motorist"</span><span class="p">,</span> <span class="s">"Volvo"</span><span class="p">,</span> <span class="s">"1992"</span><span class="p">,</span> <span class="s">"abc-123"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">Registration</span><span class="p">.</span><span class="n">license_plate_valid</span><span class="p">(</span><span class="s">"xyz-789"</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"This is a valid license plate!"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<sample-output>
+
+This is a valid license plate!
+
+</sample-output>
+
+<p>The validity of a license plate can be checked even without creating a single instance of the class, for example with <code class="language-plaintext highlighter-rouge">Registration.license_plate_valid("xyz-789")</code>. The same method is called within the constructor of the class. NB: even within the constructor this method is accessed through the name of the class, not <code class="language-plaintext highlighter-rouge">self</code>!</p>
+
+<programming-exercise name="List helper" tmcname="part09-14_list_helper">
+
+Please create a class named `ListHelper` which contains the following two class methods.
+
+* `greatest_frequency(my_list: list)` returns the most common item on the list
+* `doubles(my_list: list)` returns the number of unique items which appear at least twice on the list
+
+It should be possible to use these methods without creating an instance of the class. An example of how the methods could be used:
+
+```python
+numbers = [1, 1, 2, 1, 3, 3, 4, 5, 5, 5, 6, 5, 5, 5]
+print(ListHelper.greatest_frequency(numbers))
+print(ListHelper.doubles(numbers))
+```
+
+<sample-output>
+
+5
+3
+
+</sample-output>
+
+</programming-exercise>
