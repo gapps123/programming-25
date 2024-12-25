@@ -3,7 +3,7 @@ name: Build and Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # Set a branch name to trigger deployment
+      - main
 
 # Add these permission settings
 permissions:
@@ -24,16 +24,18 @@ jobs:
           bundler-cache: true
 
       - name: Install dependencies
+        working-directory: ./data
         run: |
           gem install jekyll bundler
           bundle install
 
       - name: Build site
+        working-directory: ./data
         run: bundle exec jekyll build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./data/_site
           publish_branch: gh-pages  # deploying branch

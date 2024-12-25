@@ -1,2 +1,20 @@
-baseurl: "/programming-25/data/"
-url: "https://gapps123.github.io/programming-25"
+baseurl: "/programming-25"
+url: "https://gapps123.github.io"
+
+title: Python Programming MOOC 2024
+description: Course material for Introduction to Programming and Advanced Course in Programming
+theme: jekyll-theme-minimal
+markdown: kramdown
+
+# Navigation structure
+navigation:
+  - title: About this course
+    path: /
+  - title: Grading and exams
+    path: /grading-and-exams
+  - title: All exercises
+    path: /exercises
+  - title: Support and assistance
+    path: /support-and-assistance
+  - title: FAQ
+    path: /faq
